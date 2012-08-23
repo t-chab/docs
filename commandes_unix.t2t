@@ -1,4 +1,4 @@
-Carte de référence des commandes Unix les plus courantes
+arte de référence des commandes Unix les plus courantes
 Thomas Chabaud <tchabaud@sqli.com>
 Dernière mise à jour: %%mtime(%c)
 
@@ -92,6 +92,17 @@ La commande //find// Permet de rechercher des fichiers dans l'arborescence du sy
 
 ++ grep ++
 
+La commande grep permet d'effectuer des recherches de chaine de caractères dans des fichiers. La syntaxe est simple :
+``` grep [chaine de recherche] [fichier ou répertoire]
+Les options les plus pratiques sont les suivantes :
+-R : permet d'effectuer une recherche récursivement dans un répertoire
+-i : permet d'ignorer la casse
+-c : Supprime la sortie standard et affiche à la place le nombre de lignes correspondantes à la chaine de recherche dans chaque fichier en entrée.
+-A //N// : Affiche les //N// lignes  qui précédent chaque occurence de recherche.
+-B //N// : Idem que //-A// pour les lignes qui suivent chaque occurence de recherche.
+-C //N// : Affiche //N// lignes entourant l'occurence de recherche.
+Pour ces 3 dernières options, chaque groupe de lignes est séparé par la chaine //--//.
+
 ++ sed ++
 
 ++ awk ++
@@ -125,3 +136,4 @@ Merci à N. Boussedra, D. Guérin, et L. Courvoisier pour leurs suggestions.
 [URLWIKIVIM]
 [URLWIKIBASH]
 [URLBOOKMARKCHEAT]
+
