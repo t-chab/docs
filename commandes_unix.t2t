@@ -1,8 +1,9 @@
-arte de référence des commandes Unix les plus courantes
+Carte de référence des commandes Unix les plus courantes
 Thomas Chabaud <tchabaud@sqli.com>
 Dernière mise à jour: %%mtime(%c)
 
 %! Target : xhtml
+%! Target : tex
 %! Encoding: utf-8
 %! Options : −−toc −−enum−title
 %!preproc: URLWIKIVIM       http://fr.wikipedia.org/wiki/Vim
@@ -67,7 +68,7 @@ La commande //ls// permet de lister le contenu d'un répertoire.
 La commande //mv// permet de renommer des fichiers / répertoires.
 
 **__Exemple :__**
-```mv http.conf httpd.conf
+``` mv http.conf httpd.conf
    Renomme le fichier //http.conf// en //httpd.conf//
 
 ++ cp ++
@@ -75,7 +76,7 @@ La commande //mv// permet de renommer des fichiers / répertoires.
 La commande //cp// permet de copier des fichiers / répertoires.
 
 **__Exemple :__**
-```cp ficsrc ficdest
+``` cp ficsrc ficdest
    Copie le contenu de //ficsrc// dans un second fichier nommé //ficdest//
 
 ++ find ++
@@ -95,13 +96,14 @@ La commande //find// Permet de rechercher des fichiers dans l'arborescence du sy
 La commande grep permet d'effectuer des recherches de chaine de caractères dans des fichiers. La syntaxe est simple :
 ``` grep [chaine de recherche] [fichier ou répertoire]
 Les options les plus pratiques sont les suivantes :
--R : permet d'effectuer une recherche récursivement dans un répertoire
--i : permet d'ignorer la casse
--c : Supprime la sortie standard et affiche à la place le nombre de lignes correspondantes à la chaine de recherche dans chaque fichier en entrée.
--A //N// : Affiche les //N// lignes  qui précédent chaque occurence de recherche.
--B //N// : Idem que //-A// pour les lignes qui suivent chaque occurence de recherche.
--C //N// : Affiche //N// lignes entourant l'occurence de recherche.
+- -R : permet d'effectuer une recherche récursivement dans un répertoire
+- -i : permet d'ignorer la casse
+- -c : Supprime la sortie standard et affiche à la place le nombre de lignes correspondantes à la chaine de recherche dans chaque fichier en entrée.
+- -A //N// : Affiche les //N// lignes  qui précédent chaque occurence de recherche.
+- -B //N// : Idem que //-A// pour les lignes qui suivent chaque occurence de recherche.
+- -C //N// : Affiche //N// lignes entourant l'occurence de recherche.
 Pour ces 3 dernières options, chaque groupe de lignes est séparé par la chaine //--//.
+
 
 ++ sed ++
 
@@ -133,7 +135,7 @@ Merci à N. Boussedra, D. Guérin, et L. Courvoisier pour leurs suggestions.
 
 + Bibliographie +
 
-[URLWIKIVIM]
-[URLWIKIBASH]
-[URLBOOKMARKCHEAT]
+- [URLWIKIVIM]
+- [URLWIKIBASH]
+- [URLBOOKMARKCHEAT]
 
