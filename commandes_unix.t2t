@@ -20,6 +20,28 @@ Dernière mise à jour: %%mtime(%c)
 + Shell +
 L'appellation //shell// désigne la plupart du temps dans le monde Unix un interpréteur de lignes de commandes. Pour des raisons de concision, cette documentation ne traite que du shell //bash//,
 qui est utilisé par défaut sur les distributions Linux et Mac OS X.
+Les principaux raccourcis clavier du shell //bash// sont les suivants :
+``` Tab
+Complète la commande
+``` Ctrl-d
+Déconnecte l'utilisateur (équivalent d'un //exit//)
+``` Ctrl-l
+Efface l'écran (équivalent de la commande //clear//)
+``` Ctrl-a
+Envoie le curseur en début de ligne
+``` Ctrl- e
+Envoie le curseur en fin de ligne
+``` Ctrl-p
+Commande précédente dans l'historique
+``` Ctrl-n
+Commande suivante dans l'historique
+``` Alt-Del
+``` !//uneChaine//
+Rappelle la dernière commande commençant par //uneChaine//
+``` Ctrl-c
+Interrompt la commande en cours
+``` Ctrl-z
+Met en pause le process courant (envoi d'un signal **SIGSTP**). Il faut utiliser la commande //fg// pour le reprendre.
 
 + Documentation +
 
