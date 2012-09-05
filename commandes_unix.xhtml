@@ -4,14 +4,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Carte de référence des commandes Unix les plus courantes</title>
+<title>Guide de survie sous Unix</title>
 <meta name="generator" content="http://txt2tags.org" />
 </head>
 <body bgcolor="white" text="black">
 <div align="center">
-<h1>Carte de référence des commandes Unix les plus courantes</h1>
-<h2>Thomas Chabaud &lt;tchabaud@sqli.com&gt;</h2>
-<h3>Dernière mise à jour: Wed Aug  8 22:34:34 2012</h3>
+<h1>Guide de survie sous Unix</h1>
+<h2>&lt;tchabaud@sqli.com&gt;</h2>
+<h3>Dernière mise à jour: Wed Sep  5 22:12:05 2012</h3>
 </div>
 
 
@@ -24,8 +24,92 @@
 <h1>1. Shell</h1>
 
 <p>
-L'appellation <i>shell</i> désigne la plupart du temps dans le monde Unix un interpréteur de lignes de commandes. Pour des raisons de concision, cette documentation ne traite que du shell <i>bash</i>,
-qui est utilisé par défaut sur les distributions Linux et Mac OS X.
+L'appellation <i>shell</i> désigne la plupart du temps dans le monde Unix un interpréteur de lignes de commandes. Pour des raisons de concision, cette documentation ne traite que du shell <i>bash</i>, qui est utilisé par défaut sur les distributions Linux et Mac OS X.
+Les principaux raccourcis clavier du shell <i>bash</i> sont les suivants :
+</p>
+
+<pre>
+  Tab
+</pre>
+
+<p>
+Complète la commande
+</p>
+
+<pre>
+  Ctrl-d
+</pre>
+
+<p>
+Déconnecte l'utilisateur (équivalent d'un <i>exit</i>)
+</p>
+
+<pre>
+  Ctrl-l
+</pre>
+
+<p>
+Efface l'écran (équivalent de la commande <i>clear</i>)
+</p>
+
+<pre>
+  Ctrl-a
+</pre>
+
+<p>
+Envoie le curseur en début de ligne
+</p>
+
+<pre>
+  Ctrl- e
+</pre>
+
+<p>
+Envoie le curseur en fin de ligne
+</p>
+
+<pre>
+  Ctrl-p
+</pre>
+
+<p>
+Commande précédente dans l'historique
+</p>
+
+<pre>
+  Ctrl-n
+</pre>
+
+<p>
+Commande suivante dans l'historique
+</p>
+
+<pre>
+  Alt-Del
+</pre>
+
+<pre>
+  !uneChaine
+</pre>
+
+<p>
+Rappelle la dernière commande commençant par <i>uneChaine</i>
+</p>
+
+<pre>
+  Ctrl-c
+</pre>
+
+<p>
+Interrompt la commande en cours
+</p>
+
+<pre>
+  Ctrl-z
+</pre>
+
+<p>
+Met en pause le process courant (envoi d'un signal <b>SIGSTP</b>). Il faut utiliser la commande <i>fg</i> pour le reprendre.
 </p>
 
 <h1>2. Documentation</h1>
@@ -131,28 +215,136 @@ La commande <i>ls</i> permet de lister le contenu d'un répertoire.
 <p>
 La commande <i>mv</i> permet de renommer des fichiers / répertoires.
 </p>
+<p>
+<b><u>Exemple :</u></b>
+</p>
+
+<pre>
+  mv http.conf httpd.conf
+</pre>
+
+<p>
+   Renomme le fichier <i>http.conf</i> en <i>httpd.conf</i>
+</p>
 
 <h2>3.5. cp</h2>
 
 <p>
 La commande <i>cp</i> permet de copier des fichiers / répertoires.
 </p>
+<p>
+<b><u>Exemple :</u></b>
+</p>
+
+<pre>
+  cp ficsrc ficdest
+</pre>
+
+<p>
+   Copie le contenu de <i>ficsrc</i> dans un second fichier nommé <i>ficdest</i>
+</p>
 
 <h2>3.6. find</h2>
 
 <p>
-La commande <i>find</i> Permet de rechercher des fichiers dans l'arborescence du file system
+La commande <i>find</i> Permet de rechercher des fichiers dans l'arborescence du système de fichiers.
+</p>
+<p>
+<b><u>Exemple :</u></b>
+</p>
+
+<pre>
+  find /usr -type f -name "foo*"
+</pre>
+
+<p>
+    Recherche dans le répertoire <i>/usr</i> et dans tous ses sous répertoires tous les fichiers (-type f) dont le nom commence par <i>foo</i>
+</p>
+
+<pre>
+  find ~ -name "*.jpg" -exec convert {} basename \{\} .png
+</pre>
+
+<p>
+    Recherche dans le répertoire <i>/home</i> (~) de l'utilisateur tous les élément qui se terminent par <i>.jpg</i> et
+    exécute sur chaque élément trouvé la commande <i>convert &lt;fichier&gt;</i>
 </p>
 
 <h1>4. Manipulation de fichiers textes</h1>
 
 <h2>4.1. grep</h2>
 
-<h2>4.2. sed</h2>
+<p>
+La commande <i>grep</i> permet d'effectuer des recherches de chaine de caractères dans des fichiers. La syntaxe est simple :
+</p>
 
-<h2>4.3. awk</h2>
+<pre>
+  grep [chaine de recherche] [fichier ou répertoire]
+</pre>
 
-<h2>4.4. vim</h2>
+<p>
+Les options les plus pratiques sont les suivantes :
+</p>
+
+<ul>
+<li>-R : permet d'effectuer une recherche récursivement dans un répertoire
+</li>
+<li>-i : permet d'ignorer la casse
+</li>
+<li>-c : Supprime la sortie standard et affiche à la place le nombre de lignes correspondantes à la chaine de recherche dans chaque fichier en entrée.
+</li>
+<li>-A <i>N</i> : Affiche les <i>N</i> lignes  qui précédent chaque occurence de recherche.
+</li>
+<li>-B <i>N</i> : Idem que <i>-A</i> pour les lignes qui suivent chaque occurence de recherche.
+</li>
+<li>-C <i>N</i> : Affiche <i>N</i> lignes entourant l'occurence de recherche.
+</li>
+</ul>
+
+<p>
+Pour ces 3 dernières options, chaque groupe de lignes est séparé par la chaine <i>--</i>.
+</p>
+
+<h2>4.2. awk</h2>
+
+<p>
+La commande <i>awk</i> permet de nombreuses manipulations sur des fichiers textes. Un tutoriel est disponible ici
+[<a href="http://nyal.developpez.com/tutoriel/gawk/index.php">http://nyal.developpez.com/tutoriel/gawk/index.php</a>]. Elle est très pratique pour réordonner les colonnes d'un fichier texte, ou le filtrer en n'affichant que certaines
+colonnes. Les colonnes sont référencées par <i>$&lt;index&gt;</i>. Par exemple la colonne 3 est référencée par <i>$3</i>. <i>$0</i>
+référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par défaut est le caractère espace.
+</p>
+<p>
+<b><u>Syntaxe "one-line" :</u></b>
+</p>
+
+<pre>
+  awk -F "&lt;séparateur&gt;" '{ suite de commandes [...] }'
+</pre>
+
+<p>
+<b><u>Exemple</u></b> :
+</p>
+
+<pre>
+  awk -F ";" '{ print $4 " " $8}' foo.csv
+</pre>
+
+<p>
+Affiche la 4e et la 8e colonne du fichier <i>foo.csv</i> ayant comme séparateur de champ le caractère <i>;</i>
+Les 2 colonnes sont séparées par le caractère espace.
+</p>
+
+<pre>
+  awk '{ print $1=$2=$3=""; print $0}' system.log
+</pre>
+
+<p>
+Affiche le fichier system.log sans les 3 premières colonnes.
+</p>
+
+<h2>4.3. vim</h2>
+
+<h3>4.3.1. Description</h3>
 
 <p>
 Vim est un éditeur de texte descendant de vi, et qui dispose de plusieurs modes d'éditions. Les plus utilisés sont le mode commande et le mode insertion.
@@ -163,7 +355,147 @@ Vim démarre en mode commande, qui permet notamment de sauvegarder, d'effectuer 
 <p>
 Pour passer du mode commande au mode édition, il faut utiliser la touche <b>i</b>.
 La touche <b>Echap</b> permet de retourner au mode commande depuis le mode édition.
+Pour saisir une commande dans le mode éponyme, il faut utiliser la syntaxe <i>:&lt;commande&gt;</i>
 </p>
+
+<h3>4.3.2. Commandes principales</h3>
+
+<pre>
+  :w
+</pre>
+
+<p>
+Pour sauvegarder
+</p>
+
+<pre>
+  :q
+</pre>
+
+<p>
+Pour quitter
+</p>
+
+<pre>
+  :wq
+</pre>
+
+<p>
+Pour sauvegarder et quitter
+</p>
+
+<pre>
+  :/toto
+</pre>
+
+<p>
+Pour chercher la chaine "toto" dans le fichier courant
+</p>
+
+<pre>
+  :$
+</pre>
+
+<p>
+Envoie le curseur en fin de fichier
+</p>
+
+<pre>
+  :15
+</pre>
+
+<p>
+Positionne le curseur sur la ligne 15 du fichier courant
+</p>
+
+<pre>
+  :set ff=unix
+</pre>
+
+<p>
+Utilise des fins de ligne Unix (\n) pour le fichier courant. Pour utiliser des fins de lignes DOS (\r\n), remplacer <i>unix</i> par
+<i>dos</i>
+</p>
+
+<pre>
+  :dd
+</pre>
+
+<p>
+Supprime la ligne courante
+</p>
+
+<pre>
+  :d20
+</pre>
+
+<p>
+Efface 20 lignes à partir du curseur
+</p>
+
+<pre>
+  :set syntax on
+</pre>
+
+<p>
+Active la coloration syntaxique (<i>off</i> pour désactiver).
+</p>
+
+<pre>
+  :set background=dark
+</pre>
+
+<p>
+Active un jeu de couleur (pour la coloration syntaxique) plus lisible pour les terminaux à fond sombre.
+</p>
+
+<pre>
+  :set number
+</pre>
+
+<p>
+Affiche les numéros de lignes. <i>nonumber</i> pour les masquer.
+</p>
+
+<h3>4.3.3. Raccourcis claviers</h3>
+
+<p>
+Raccourcis clavier du mode commande :
+</p>
+
+<ul>
+<li><i>x</i> : Supprime le caractère sous le curseur.
+</li>
+<li><i>j</i> : Déplace le curseur sur la ligne du dessous.
+</li>
+<li><i>k</i> : Déplace le curseur sur la ligne du dessus.
+</li>
+<li><i>h</i> : Déplace le curseur d'un caractère vers la gauche.
+</li>
+<li><i>l</i> : Déplace le curseur d'un caractère vers la droite.
+</li>
+<li><i>A</i> : Envoie le curseur a la fin de la ligne courante et bascule en mode insertion.
+</li>
+<li><i>u</i> : Undo. Annule la dernière commande. <i>u&lt;N&gt;</i> Permet d'annuler les <i>&lt;N&gt;</i> dernières commandes.
+</li>
+</ul>
+
+<h3>4.3.4. Copier/coller</h3>
+
+<ul>
+<li>Positionner le curseur au début de la zone à copier ou couper.
+</li>
+<li>Appuyer sur <i>v</i> pour débuter la sélection.
+</li>
+<li>Déplacer le curseur à la fin de la zone à copier ou couper.
+</li>
+<li>Appuyer sur <i>d</i> (delete) pour couper ou sur <i>y</i> (yank) pour copier.
+</li>
+<li>Déplacer le curseur vers la zone cible de la copie ou du déplacement.
+</li>
+<li>Appuyer sur <i>p</i> pour coller après le curseur ou <i>P</i> pour coller avant le curseur.
+</li>
+</ul>
 
 <h1>5. Notion de pipe</h1>
 
@@ -175,8 +507,14 @@ Le pipe (caractère |) permet de brancher la sortie d'une commande sur l'entrée
 </p>
 
 <pre>
-  grep "2012/08/01" | awk '{ print $15 " " $1}' |sort -rn
+  grep "2012/08/01" access.log | awk '{ print $15 " " $1}' |sort -rn
 </pre>
+
+<p>
+Recherche la chaine <i>2012/08/01</i> dans le fichier access.log. La sortie du grep est ensuite branchée sur la commande
+awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. Pour finir on se branche sur la commande
+<i>sort</i> qui va trier le tout par ordre décroissant (option <i>r</i>) en effectuant un tri numérique (option <i>n</i>).
+</p>
 
 <hr class="heavy" />
 
@@ -190,11 +528,15 @@ Merci à N. Boussedra, D. Guérin, et L. Courvoisier pour leurs suggestions.
 
 <h1>7. Bibliographie</h1>
 
-<p>
-[<a href="http://fr.wikipedia.org/wiki/Vim">http://fr.wikipedia.org/wiki/Vim</a>]
-[<a href="http://fr.wikipedia.org/wiki/Bourne-Again_shell">http://fr.wikipedia.org/wiki/Bourne-Again_shell</a>]
-[<a href="http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html">http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html</a>]
-</p>
+<ul>
+<li>[<a href="http://fr.wikipedia.org/wiki/Vim">http://fr.wikipedia.org/wiki/Vim</a>]
+</li>
+<li>[<a href="http://fr.wikipedia.org/wiki/Bourne-Again_shell">http://fr.wikipedia.org/wiki/Bourne-Again_shell</a>]
+</li>
+<li>[<a href="http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html">http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html</a>]
+<p></p>
+</li>
+</ul>
 
 <!-- xhtml code generated by txt2tags 2.6 (http://txt2tags.org) -->
 <!-- cmdline: txt2tags commandes_unix.t2t -->
