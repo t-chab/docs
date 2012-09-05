@@ -1,14 +1,14 @@
-Carte de référence des commandes Unix les plus courantes
-Thomas Chabaud <tchabaud@sqli.com>
+Guide de survie sous Unix
+<tchabaud@sqli.com>
 Dernière mise à jour: %%mtime(%c)
 
 %! Target : xhtml
-%! Target : tex
 %! Encoding: utf-8
 %! Options : −−toc −−enum−title
 %!preproc: URLWIKIVIM       http://fr.wikipedia.org/wiki/Vim
 %!preproc: URLWIKIBASH      http://fr.wikipedia.org/wiki/Bourne-Again_shell
 %!preproc: URLBOOKMARKCHEAT http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html
+%!preproc: URLAWKTUTO http://nyal.developpez.com/tutoriel/gawk/index.php
 
 = Commandes Unix =
 ====================
@@ -18,8 +18,7 @@ Dernière mise à jour: %%mtime(%c)
 ====================
 
 + Shell +
-L'appellation //shell// désigne la plupart du temps dans le monde Unix un interpréteur de lignes de commandes. Pour des raisons de concision, cette documentation ne traite que du shell //bash//,
-qui est utilisé par défaut sur les distributions Linux et Mac OS X.
+L'appellation //shell// désigne la plupart du temps dans le monde Unix un interpréteur de lignes de commandes. Pour des raisons de concision, cette documentation ne traite que du shell //bash//, qui est utilisé par défaut sur les distributions Linux et Mac OS X.
 Les principaux raccourcis clavier du shell //bash// sont les suivants :
 ``` Tab
 Complète la commande
@@ -36,7 +35,7 @@ Commande précédente dans l'historique
 ``` Ctrl-n
 Commande suivante dans l'historique
 ``` Alt-Del
-``` !//uneChaine//
+``` !uneChaine
 Rappelle la dernière commande commençant par //uneChaine//
 ``` Ctrl-c
 Interrompt la commande en cours
@@ -109,13 +108,14 @@ La commande //find// Permet de rechercher des fichiers dans l'arborescence du sy
 ``` find /usr -type f -name "foo*"
     Recherche dans le répertoire ///usr// et dans tous ses sous répertoires tous les fichiers (-type f) dont le nom commence par //foo//
 ``` find ~ -name "*.jpg" -exec convert {} basename \{\} .png
-    Recherche dans le répertoire ///home// (~) de l'utilisateur tous les élément qui se terminent par //.jpg// et exécute sur chaque élément trouvé la commande //convert <fichier>
+    Recherche dans le répertoire ///home// (~) de l'utilisateur tous les élément qui se terminent par //.jpg// et
+    exécute sur chaque élément trouvé la commande //convert <fichier>//
 
 + Manipulation de fichiers textes +
 
 ++ grep ++
 
-La commande grep permet d'effectuer des recherches de chaine de caractères dans des fichiers. La syntaxe est simple :
+La commande //grep// permet d'effectuer des recherches de chaine de caractères dans des fichiers. La syntaxe est simple :
 ``` grep [chaine de recherche] [fichier ou répertoire]
 Les options les plus pratiques sont les suivantes :
 - -R : permet d'effectuer une recherche récursivement dans un répertoire
@@ -124,14 +124,30 @@ Les options les plus pratiques sont les suivantes :
 - -A //N// : Affiche les //N// lignes  qui précédent chaque occurence de recherche.
 - -B //N// : Idem que //-A// pour les lignes qui suivent chaque occurence de recherche.
 - -C //N// : Affiche //N// lignes entourant l'occurence de recherche.
+
+
 Pour ces 3 dernières options, chaque groupe de lignes est séparé par la chaine //--//.
-
-
-++ sed ++
 
 ++ awk ++
 
+La commande //awk// permet de nombreuses manipulations sur des fichiers textes. Un tutoriel est disponible ici
+[URLAWKTUTO]. Elle est très pratique pour réordonner les colonnes d'un fichier texte, ou le filtrer en n'affichant que certaines
+colonnes. Les colonnes sont référencées par //$<index>//. Par exemple la colonne 3 est référencée par //$3//. //$0//
+référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par défaut est le caractère espace.
+
+**__Syntaxe "one-line" :__**
+``` awk -F "<séparateur>" '{ suite de commandes [...] }'
+
+**__Exemple__** :
+``` awk -F ";" '{ print $4 " " $8}' foo.csv
+Affiche la 4e et la 8e colonne du fichier //foo.csv// ayant comme séparateur de champ le caractère //;//
+Les 2 colonnes sont séparées par le caractère espace.
+``` awk '{ print $1=$2=$3=""; print $0}' system.log
+Affiche le fichier system.log sans les 3 premières colonnes.
+
 ++ vim ++
+
++++ Description  +++
 
 Vim est un éditeur de texte descendant de vi, et qui dispose de plusieurs modes d'éditions. Les plus utilisés sont le mode commande et le mode insertion.
 
@@ -139,13 +155,68 @@ Vim démarre en mode commande, qui permet notamment de sauvegarder, d'effectuer 
 
 Pour passer du mode commande au mode édition, il faut utiliser la touche **i**.
 La touche **Echap** permet de retourner au mode commande depuis le mode édition.
+Pour saisir une commande dans le mode éponyme, il faut utiliser la syntaxe //:<commande>//
+
++++ Commandes principales +++
+
+``` :w
+Pour sauvegarder
+``` :q
+Pour quitter
+``` :wq
+Pour sauvegarder et quitter
+``` :/toto
+Pour chercher la chaine "toto" dans le fichier courant
+``` :$
+Envoie le curseur en fin de fichier
+``` :15
+Positionne le curseur sur la ligne 15 du fichier courant
+``` :set ff=unix
+Utilise des fins de ligne Unix (\n) pour le fichier courant. Pour utiliser des fins de lignes DOS (\r\n), remplacer //unix// par
+//dos//
+``` :dd
+Supprime la ligne courante
+``` :d20
+Efface 20 lignes à partir du curseur
+``` :set syntax on
+Active la coloration syntaxique (//off// pour désactiver).
+``` :set background=dark
+Active un jeu de couleur (pour la coloration syntaxique) plus lisible pour les terminaux à fond sombre.
+``` :set number
+Affiche les numéros de lignes. //nonumber// pour les masquer.
+
++++ Raccourcis claviers +++
+
+Raccourcis clavier du mode commande :
+
+- //x// : Supprime le caractère sous le curseur.
+- //j// : Déplace le curseur sur la ligne du dessous.
+- //k// : Déplace le curseur sur la ligne du dessus.
+- //h// : Déplace le curseur d'un caractère vers la gauche.
+- //l// : Déplace le curseur d'un caractère vers la droite.
+- //A// : Envoie le curseur a la fin de la ligne courante et bascule en mode insertion.
+- //u// : Undo. Annule la dernière commande. //u<N>// Permet d'annuler les //<N>// dernières commandes.
+
+
++++ Copier/coller  +++
+
+- Positionner le curseur au début de la zone à copier ou couper.
+- Appuyer sur //v// pour débuter la sélection.
+- Déplacer le curseur à la fin de la zone à copier ou couper.
+- Appuyer sur //d// (delete) pour couper ou sur //y// (yank) pour copier.
+- Déplacer le curseur vers la zone cible de la copie ou du déplacement.
+- Appuyer sur //p// pour coller après le curseur ou //P// pour coller avant le curseur.
+
 
 + Notion de pipe +
 
 Le pipe (caractère |) permet de brancher la sortie d'une commande sur l'entrée d'une autre, afin d'enchainer des traitements, par exemple de filtrer un fichier texte :
 
 **__Exemple :__**
-``` grep "2012/08/01" | awk '{ print $15 " " $1}' |sort -rn
+``` grep "2012/08/01" access.log | awk '{ print $15 " " $1}' |sort -rn
+Recherche la chaine //2012/08/01// dans le fichier access.log. La sortie du grep est ensuite branchée sur la commande
+awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. Pour finir on se branche sur la commande
+//sort// qui va trier le tout par ordre décroissant (option //r//) en effectuant un tri numérique (option //n//).
 
 ====================
 
