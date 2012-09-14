@@ -4,7 +4,7 @@ Dernière mise à jour: %%mtime(%c)
 
 %! Target : xhtml
 %! Encoding: utf-8
-%! Options : −−toc −−enum−title
+%! Options : --toc --enum-title
 %!preproc: URLWIKIVIM       http://fr.wikipedia.org/wiki/Vim
 %!preproc: URLWIKIBASH      http://fr.wikipedia.org/wiki/Bourne-Again_shell
 %!preproc: URLBOOKMARKCHEAT http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html
@@ -20,27 +20,29 @@ Dernière mise à jour: %%mtime(%c)
 + Shell +
 L'appellation //shell// désigne la plupart du temps dans le monde Unix un interpréteur de lignes de commandes. Pour des raisons de concision, cette documentation ne traite que du shell //bash//, qui est utilisé par défaut sur les distributions Linux et Mac OS X.
 Les principaux raccourcis clavier du shell //bash// sont les suivants :
-``` Tab
+
 Complète la commande
-``` Ctrl-d
+``` Tab
+ou
+``` Ctrl-i
 Déconnecte l'utilisateur (équivalent d'un //exit//)
-``` Ctrl-l
+``` Ctrl-d
 Efface l'écran (équivalent de la commande //clear//)
-``` Ctrl-a
+``` Ctrl-l
 Envoie le curseur en début de ligne
-``` Ctrl- e
+``` Ctrl-a
 Envoie le curseur en fin de ligne
-``` Ctrl-p
+``` Ctrl-e
 Commande précédente dans l'historique
-``` Ctrl-n
+``` Ctrl-p
 Commande suivante dans l'historique
-``` Alt-Del
-``` !uneChaine
+``` Ctrl-n
 Rappelle la dernière commande commençant par //uneChaine//
-``` Ctrl-c
+``` !uneChaine
 Interrompt la commande en cours
-``` Ctrl-z
+``` Ctrl-c
 Met en pause le process courant (envoi d'un signal **SIGSTP**). Il faut utiliser la commande //fg// pour le reprendre.
+``` Ctrl-z
 
 + Documentation +
 
@@ -49,12 +51,12 @@ Met en pause le process courant (envoi d'un signal **SIGSTP**). Il faut utiliser
 La commande //man// permet d'afficher le manuel d'utilisation de la commande passé en argument.
 
 **__Exemple__** :
-``` man ls
     Affiche l'aide de la commande //ls//, avec le détail des options.
-``` man -t bash > bash.ps
+``` man ls
     Convertit le manuel de la commande //bash// en fichier Postscript.
-``` man -t bash | ps2pdf - > bash.pdf
+``` man -t bash > bash.ps
     Convertit le manuel de la commande //bash// en fichier PDF.
+``` man -t bash | ps2pdf - > bash.pdf
 
 + Gestion des fichiers +
 
@@ -68,48 +70,48 @@ La commande //cd// permet de se déplacer dans le répertoire passé en argument
 Le caractère //-// permet de revenir au répertoire précédent. Le caractère //~// pointe vers le répertoire //home// de l'utilisateur courant.
 
 **__Exemple :__** :
+    Le répertoire courant devient ///usr// puis ///var// puis on revient ensuite dans le répertoire ///usr// avant de se déplacer dans le //home// de l'utilisateur.
 ``` cd /usr
 ``` cd /var
 ``` cd -
 ``` cd ~
-    Le répertoire courant devient ///usr// puis ///var// puis on revient ensuite dans le répertoire ///usr// avant de se déplacer dans le //home// de l'utilisateur.
 
 ++ ls ++
 
 La commande //ls// permet de lister le contenu d'un répertoire.
 
 **__Exemple :__**
-``` ls -alrt
     Liste tous les fichiers (//-a//, c'est à dire même les fichiers cachés) avec un affichage détaillé (//-l//) en les triant par date (//-t//) du plus ancien au plus récent (//-r//, inverse l'ordre de tri).
+``` ls -alrt
+    Liste tous les fichiers du répertoire ///var// mais n'affiche pas //.// (alias pour le répertoire courant) ni //../// (alias pour le répertoire parent)    
 ``` ls -A /var
-    Liste tous les fichiers du répertoire ///var// mais n'affiche pas //.// (alias pour le répertoire courant) ni //../// (alias pour le répertoire parent)
 
 ++ mv ++
 
 La commande //mv// permet de renommer des fichiers / répertoires.
 
 **__Exemple :__**
+    Renomme le fichier //http.conf// en //httpd.conf//
 ``` mv http.conf httpd.conf
-   Renomme le fichier //http.conf// en //httpd.conf//
 
 ++ cp ++
 
 La commande //cp// permet de copier des fichiers / répertoires.
 
 **__Exemple :__**
+    Copie le contenu de //ficsrc// dans un second fichier nommé //ficdest//
 ``` cp ficsrc ficdest
-   Copie le contenu de //ficsrc// dans un second fichier nommé //ficdest//
 
 ++ find ++
 
 La commande //find// Permet de rechercher des fichiers dans l'arborescence du système de fichiers.
 
 **__Exemple :__**
-``` find /usr -type f -name "foo*"
     Recherche dans le répertoire ///usr// et dans tous ses sous répertoires tous les fichiers (-type f) dont le nom commence par //foo//
-``` find ~ -name "*.jpg" -exec convert {} basename \{\} .png
+``` find /usr -type f -name "foo*"
     Recherche dans le répertoire ///home// (~) de l'utilisateur tous les élément qui se terminent par //.jpg// et
     exécute sur chaque élément trouvé la commande //convert <fichier>//
+``` find ~ -name "*.jpg" -exec convert {} basename \{\} .png
 
 + Manipulation de fichiers textes +
 
@@ -139,11 +141,11 @@ référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par d�
 ``` awk -F "<séparateur>" '{ suite de commandes [...] }'
 
 **__Exemple__** :
+    Affiche la 4e et la 8e colonne du fichier //foo.csv// ayant comme séparateur de champ le caractère //;//
+    Les 2 colonnes sont séparées par le caractère espace.
 ``` awk -F ";" '{ print $4 " " $8}' foo.csv
-Affiche la 4e et la 8e colonne du fichier //foo.csv// ayant comme séparateur de champ le caractère //;//
-Les 2 colonnes sont séparées par le caractère espace.
+    Affiche le fichier system.log sans les 3 premières colonnes.
 ``` awk '{ print $1=$2=$3=""; print $0}' system.log
-Affiche le fichier system.log sans les 3 premières colonnes.
 
 ++ vim ++
 
@@ -159,31 +161,31 @@ Pour saisir une commande dans le mode éponyme, il faut utiliser la syntaxe //:<
 
 +++ Commandes principales +++
 
-``` :w
 Pour sauvegarder
-``` :q
+``` :w
 Pour quitter
-``` :wq
+``` :q
 Pour sauvegarder et quitter
-``` :/toto
+``` :wq
 Pour chercher la chaine "toto" dans le fichier courant
-``` :$
+``` :/toto
 Envoie le curseur en fin de fichier
-``` :15
+``` :$
 Positionne le curseur sur la ligne 15 du fichier courant
-``` :set ff=unix
+``` :15
 Utilise des fins de ligne Unix (\n) pour le fichier courant. Pour utiliser des fins de lignes DOS (\r\n), remplacer //unix// par
 //dos//
-``` :dd
+``` :set ff=unix
 Supprime la ligne courante
-``` :d20
+``` :dd
 Efface 20 lignes à partir du curseur
-``` :set syntax on
+``` :d20
 Active la coloration syntaxique (//off// pour désactiver).
-``` :set background=dark
+``` :set syntax on
 Active un jeu de couleur (pour la coloration syntaxique) plus lisible pour les terminaux à fond sombre.
-``` :set number
+``` :set background=dark
 Affiche les numéros de lignes. //nonumber// pour les masquer.
+``` :set number
 
 +++ Raccourcis claviers +++
 
@@ -213,16 +215,16 @@ Raccourcis clavier du mode commande :
 Le pipe (caractère |) permet de brancher la sortie d'une commande sur l'entrée d'une autre, afin d'enchainer des traitements, par exemple de filtrer un fichier texte :
 
 **__Exemple :__**
-``` grep "2012/08/01" access.log | awk '{ print $15 " " $1}' |sort -rn
 Recherche la chaine //2012/08/01// dans le fichier access.log. La sortie du grep est ensuite branchée sur la commande
 awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. Pour finir on se branche sur la commande
 //sort// qui va trier le tout par ordre décroissant (option //r//) en effectuant un tri numérique (option //n//).
+``` grep "2012/08/01" access.log | awk '{ print $15 " " $1}' |sort -rn
 
 ====================
 
 + Remerciements +
 
-Merci à N. Boussedra, D. Guérin, et L. Courvoisier pour leurs suggestions.
+Merci à N. Boussedra, D. Guérin, L. Courvoisier et G. Euzet pour leurs suggestions.
 
 ====================
 
