@@ -153,6 +153,20 @@ La commande //find// Permet de rechercher des fichiers dans l'arborescence du sy
     exécute sur chaque élément trouvé la commande //convert <fichier>//
 ``` find ~ -name "*.jpg" -exec convert {} basename \{\} .png
 
+++ du ++
+
+La commande //du// permet de connaitre l'espace occupé par un fichier ou un répertoire.
+
+Affiche la taille totale du répertoire ///home//. L'option //-h// permet d'avoir une taile "human readable".
+``` du -sh /home
+
+++ df ++
+
+La commande //df// permet d'afficher l'espace disponible sur chacune des partitions du système.
+
+Affiche l'espace occupé et libre sur chacune des partitions du système. L'option //-h// permet d'avoir une taile "human readable".
+``` df -h
+
 + Manipulation de fichiers textes +
 
 ++ head ++
