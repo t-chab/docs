@@ -9,6 +9,7 @@ Dernière mise à jour: %%mtime(%c)
 %!preproc: URLWIKIBASH      http://fr.wikipedia.org/wiki/Bourne-Again_shell
 %!preproc: URLBOOKMARKCHEAT http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html
 %!preproc: URLAWKTUTO http://nyal.developpez.com/tutoriel/gawk/index.php
+%!preproc: URLUNIXFILEPERMS http://fr.wikipedia.org/wiki/Permissions_Unix
 
 = Commandes Unix =
 ====================
@@ -20,6 +21,8 @@ Dernière mise à jour: %%mtime(%c)
 + Shell +
 L'appellation //shell// désigne la plupart du temps dans le monde Unix un interpréteur de lignes de commandes. Pour des raisons de concision, cette documentation ne traite que du shell //bash//, qui est utilisé par défaut sur les distributions Linux et Mac OS X.
 Les principaux raccourcis clavier du shell //bash// sont les suivants :
+
+++ Edition de la ligne de commande ++
 
 Complète la commande
 ``` Tab
@@ -44,6 +47,17 @@ Interrompt la commande en cours
 Met en pause le process courant (envoi d'un signal **SIGSTP**). Il faut utiliser la commande //fg// pour le reprendre.
 ``` Ctrl-z
 
+++ echo  ++
+
+La commande //echo// permet d'afficher une ligne de texte à l'écran.
+
+Affiche //Ceci est une ligne de texte// sur l'écran
+``` echo Ceci est une ligne de texte
+
+Affiche //test// suivi de 5 retours chariots sur l'écran. L'option //-e// est indispensable pour que les //\n// soient
+interprétés comme des retour chariots.
+``` echo -e "test\n\n\n\n\n"
+
 + Documentation +
 
 ++ man ++
@@ -59,6 +73,19 @@ La commande //man// permet d'afficher le manuel d'utilisation de la commande pas
 ``` man -t bash | ps2pdf - > bash.pdf
 
 + Gestion des fichiers +
+
+++ cat ++
+
+La commande //cat// permet de concaténer des fichiers, mais aussi d'envoyer le contenu d'un fichier sur la sortie
+standard.
+
+**_Exemple_** :
+
+Afficher le contenu du fichier //document.txt//
+``` cat document.txt
+
+Concatène les 3 fichiers //fic1//,//fic2// et //fic3// dans le fichier //fusion//
+``` cat fic1 fic2 fic3 > fusion
 
 ++ pwd ++
 
@@ -102,6 +129,19 @@ La commande //cp// permet de copier des fichiers / répertoires.
     Copie le contenu de //ficsrc// dans un second fichier nommé //ficdest//
 ``` cp ficsrc ficdest
 
+++ chmod ++
+
+La commande //chmod// permet de changer les droits sur un fichier. Pour le détail du fonctionnement des droits Unix
+voir [URLUNIXFILEPERMS].
+
+Rend récursivement tous les fichiers du répertoire courant accessible en lecture/écriture par le propriétaire, et en lecture seule
+pour le groupe et les autres utilisateurs.
+``` chmod -R 644 *
+Rend exécutable le fichier //monScript.sh//. 
+``` chmod +x monScript.sh
+Pour exécuter le fichier, se placer dans le répertoire parent et taper la commande suivante:
+``` ./monScript.sh
+
 ++ find ++
 
 La commande //find// Permet de rechercher des fichiers dans l'arborescence du système de fichiers.
@@ -114,6 +154,56 @@ La commande //find// Permet de rechercher des fichiers dans l'arborescence du sy
 ``` find ~ -name "*.jpg" -exec convert {} basename \{\} .png
 
 + Manipulation de fichiers textes +
+
+++ head ++
+
+La commande //head// affiche par défaut les 10 premières lignes du fichier passé en argument. Il est possible de
+préciser le nombre de lignes ou la taille en (kilo) octets que l'on souhaite afficher.
+
+Affiche les 27 premières lignes du fichier document.txt
+``` head -27 document.txt
+Affiche les 2 premiers ko du fichier document.txt
+``` head -c 2K document.txt
+
+++ tail ++
+
+La commande //tail// permet elle d'afficher la fin d'un fichier. L'option //-f// est particulièrement pratique, car elle
+permet de scruter un fichier de log pour afficher immédiatement sur l'écran les mises à jour de ce fichier.
+
+Affiche les 5 dernières lignes du fichier toto.txt
+``` tail -5 toto.txt
+Scrute le fichier ///var/log/messages.log// pour observer les modifications en temps réel.
+``` tail -f /var/log/messages.log
+
+++ more ++
+
+La commande //more// permet d'afficher de façon paginée le contenu d'un long fichier texte. Pour passer à la page
+suivante, il faut appuyer sur //espace//.
+
+Affiche page par page le contenu du fichier //Xorg.0.log//
+``` more /var/log/Xorg.0.log
+Affiche le fichier //monFichier.txt// en commençant à la ligne 53
+``` more +53 monFichier.txt
+
+++ sort ++
+
+La commande //sort// permet d'afficher le contenu concaténé et trié des fichiers passés en argument. Le tri est
+alphabétique par défaut.
+
+Affiche sur la sortie standard les 3 fichiers //list1//, //list2// et //list3// triés numériquement.
+``` sort -n list1 list2 list3
+Trie comme dans l'exemple précédent en supprimant les doublons
+``` sort -u -n list1 list2 list3
+
+++ uniq ++
+
+Cette commande permet de compter ou de supprimer des lignes en doublons.
+
+Affiche les lignes en doublons du fichier //list1//
+``` uniq -d list1
+Affiche le nombre d'occurences de chaque ligne du fichier //liste.txt//. L'option -i permet d'ignorer la casse pour les
+comparaisons (avec cette option , //aa//, //aA// et //AA// comptent pour 3 occurences de la même chaine).
+``` uniq -i -c liste.txt
 
 ++ grep ++
 
