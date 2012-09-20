@@ -303,7 +303,7 @@ Raccourcis clavier du mode commande :
 - //l// : Déplace le curseur d'un caractère vers la droite.
 - //A// : Envoie le curseur a la fin de la ligne courante et bascule en mode insertion.
 - //u// : Undo. Annule la dernière commande. //u<N>// Permet d'annuler les //<N>// dernières commandes.
-- Ctrl-R : Redo. Permet de refaire le dernier changement défait.
+- //Ctrl-R// : Redo. Permet de refaire le dernier changement défait.
 
 
 +++ Copier/coller  +++
@@ -314,6 +314,7 @@ Raccourcis clavier du mode commande :
 - Appuyer sur //d// (delete) pour couper ou sur //y// (yank) pour copier.
 - Déplacer le curseur vers la zone cible de la copie ou du déplacement.
 - Appuyer sur //p// pour coller après le curseur ou //P// pour coller avant le curseur.
+
 
 + Notion de pipe +
 
