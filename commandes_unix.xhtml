@@ -11,21 +11,116 @@
 <div align="center">
 <h1>Guide de survie sous Unix</h1>
 <h2>&lt;tchabaud@sqli.com&gt;</h2>
-<h3>Dernière mise à jour: Wed Sep  5 22:12:05 2012</h3>
+<h3>Dernière mise à jour: Thu Sep 20 22:37:56 2012</h3>
 </div>
 
+<p></p>
+<hr class="light" />
+<p></p>
 
-<h1>Commandes Unix</h1>
+  <ol>
+  <li><a href="#toc1">Commandes Unix</a>
+  </li>
+  <li><a href="#toc2">Shell</a>
+    <ul>
+    <li><a href="#toc3">2.1. Edition de la ligne de commande</a>
+    </li>
+    <li><a href="#toc4">2.2. echo</a>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc5">Documentation</a>
+    <ul>
+    <li><a href="#toc6">3.1. man</a>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc7">Gestion des fichiers</a>
+    <ul>
+    <li><a href="#toc8">4.1. cat</a>
+    </li>
+    <li><a href="#toc9">4.2. pwd</a>
+    </li>
+    <li><a href="#toc10">4.3. cd</a>
+    </li>
+    <li><a href="#toc11">4.4. ls</a>
+    </li>
+    <li><a href="#toc12">4.5. mv</a>
+    </li>
+    <li><a href="#toc13">4.6. cp</a>
+    </li>
+    <li><a href="#toc14">4.7. chmod</a>
+    </li>
+    <li><a href="#toc15">4.8. find</a>
+    </li>
+    <li><a href="#toc16">4.9. du</a>
+    </li>
+    <li><a href="#toc17">4.10. df</a>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc18">Manipulation de fichiers textes</a>
+    <ul>
+    <li><a href="#toc19">5.1. head</a>
+    </li>
+    <li><a href="#toc20">5.2. tail</a>
+    </li>
+    <li><a href="#toc21">5.3. more</a>
+    </li>
+    <li><a href="#toc22">5.4. sort</a>
+    </li>
+    <li><a href="#toc23">5.5. uniq</a>
+    </li>
+    <li><a href="#toc24">5.6. grep</a>
+    </li>
+    <li><a href="#toc25">5.7. awk</a>
+    </li>
+    <li><a href="#toc26">5.8. vim</a>
+      <ul>
+      <li><a href="#toc27">5.8.1. Description</a>
+      </li>
+      <li><a href="#toc28">5.8.2. Commandes principales</a>
+      </li>
+      <li><a href="#toc29">5.8.3. Raccourcis claviers</a>
+      </li>
+      <li><a href="#toc30">5.8.4. Copier/coller</a>
+      </li>
+      </ul>
+    </li>
+    </ul>
+  </li>
+  <li><a href="#toc31">Notion de pipe</a>
+  </li>
+  <li><a href="#toc32">Remerciements</a>
+  </li>
+  <li><a href="#toc33">Bibliographie</a>
+  </li>
+  </ol>
+
+<p></p>
+<hr class="light" />
+<p></p>
+
+<a id="toc1" name="toc1"></a>
+<h1>1. Commandes Unix</h1>
 
 <hr class="heavy" />
 
 <hr class="heavy" />
 
-<h1>1. Shell</h1>
+<a id="toc2" name="toc2"></a>
+<h1>2. Shell</h1>
 
 <p>
 L'appellation <i>shell</i> désigne la plupart du temps dans le monde Unix un interpréteur de lignes de commandes. Pour des raisons de concision, cette documentation ne traite que du shell <i>bash</i>, qui est utilisé par défaut sur les distributions Linux et Mac OS X.
 Les principaux raccourcis clavier du shell <i>bash</i> sont les suivants :
+</p>
+
+<a id="toc3" name="toc3"></a>
+<h2>2.1. Edition de la ligne de commande</h2>
+
+<p>
+Complète la commande
 </p>
 
 <pre>
@@ -33,11 +128,11 @@ Les principaux raccourcis clavier du shell <i>bash</i> sont les suivants :
 </pre>
 
 <p>
-Complète la commande
+ou
 </p>
 
 <pre>
-  Ctrl-d
+  Ctrl-i
 </pre>
 
 <p>
@@ -45,7 +140,7 @@ Déconnecte l'utilisateur (équivalent d'un <i>exit</i>)
 </p>
 
 <pre>
-  Ctrl-l
+  Ctrl-d
 </pre>
 
 <p>
@@ -53,7 +148,7 @@ Efface l'écran (équivalent de la commande <i>clear</i>)
 </p>
 
 <pre>
-  Ctrl-a
+  Ctrl-l
 </pre>
 
 <p>
@@ -61,7 +156,7 @@ Envoie le curseur en début de ligne
 </p>
 
 <pre>
-  Ctrl- e
+  Ctrl-a
 </pre>
 
 <p>
@@ -69,7 +164,7 @@ Envoie le curseur en fin de ligne
 </p>
 
 <pre>
-  Ctrl-p
+  Ctrl-e
 </pre>
 
 <p>
@@ -77,7 +172,7 @@ Commande précédente dans l'historique
 </p>
 
 <pre>
-  Ctrl-n
+  Ctrl-p
 </pre>
 
 <p>
@@ -85,11 +180,7 @@ Commande suivante dans l'historique
 </p>
 
 <pre>
-  Alt-Del
-</pre>
-
-<pre>
-  !uneChaine
+  Ctrl-n
 </pre>
 
 <p>
@@ -97,7 +188,7 @@ Rappelle la dernière commande commençant par <i>uneChaine</i>
 </p>
 
 <pre>
-  Ctrl-c
+  !uneChaine
 </pre>
 
 <p>
@@ -105,22 +196,53 @@ Interrompt la commande en cours
 </p>
 
 <pre>
-  Ctrl-z
+  Ctrl-c
 </pre>
 
 <p>
 Met en pause le process courant (envoi d'un signal <b>SIGSTP</b>). Il faut utiliser la commande <i>fg</i> pour le reprendre.
 </p>
 
-<h1>2. Documentation</h1>
+<pre>
+  Ctrl-z
+</pre>
 
-<h2>2.1. man</h2>
+<a id="toc4" name="toc4"></a>
+<h2>2.2. echo</h2>
+
+<p>
+La commande <i>echo</i> permet d'afficher une ligne de texte à l'écran.
+</p>
+<p>
+<b><u>Exemple</u></b> :
+Affiche <i>Ceci est une ligne de texte</i> sur l'écran
+</p>
+
+<pre>
+  echo Ceci est une ligne de texte
+</pre>
+
+<p>
+Affiche <i>test</i> suivi de 5 retours chariots sur l'écran. L'option <i>-e</i> est indispensable pour que les <i>\n</i> soient
+interprétés comme des retour chariots.
+</p>
+
+<pre>
+  echo -e "test\n\n\n\n\n"
+</pre>
+
+<a id="toc5" name="toc5"></a>
+<h1>3. Documentation</h1>
+
+<a id="toc6" name="toc6"></a>
+<h2>3.1. man</h2>
 
 <p>
 La commande <i>man</i> permet d'afficher le manuel d'utilisation de la commande passé en argument.
 </p>
 <p>
 <b><u>Exemple</u></b> :
+    Affiche l'aide de la commande <i>ls</i>, avec le détail des options.
 </p>
 
 <pre>
@@ -128,7 +250,7 @@ La commande <i>man</i> permet d'afficher le manuel d'utilisation de la commande 
 </pre>
 
 <p>
-    Affiche l'aide de la commande <i>ls</i>, avec le détail des options.
+    Convertit le manuel de la commande <i>bash</i> en fichier Postscript.
 </p>
 
 <pre>
@@ -136,26 +258,51 @@ La commande <i>man</i> permet d'afficher le manuel d'utilisation de la commande 
 </pre>
 
 <p>
-    Convertit le manuel de la commande <i>bash</i> en fichier Postscript.
+    Convertit le manuel de la commande <i>bash</i> en fichier PDF.
 </p>
 
 <pre>
   man -t bash | ps2pdf - &gt; bash.pdf
 </pre>
 
+<a id="toc7" name="toc7"></a>
+<h1>4. Gestion des fichiers</h1>
+
+<a id="toc8" name="toc8"></a>
+<h2>4.1. cat</h2>
+
 <p>
-    Convertit le manuel de la commande <i>bash</i> en fichier PDF.
+La commande <i>cat</i> permet de concaténer des fichiers, mais aussi d'envoyer le contenu d'un fichier sur la sortie
+standard.
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
+Afficher le contenu du fichier <i>document.txt</i>
 </p>
 
-<h1>3. Gestion des fichiers</h1>
+<pre>
+  cat document.txt
+</pre>
 
-<h2>3.1. pwd</h2>
+<p>
+Concatène les 3 fichiers <i>fic1</i>,<i>fic2</i> et <i>fic3</i> dans le fichier <i>fusion</i>
+</p>
+
+<pre>
+  cat fic1 fic2 fic3 &gt; fusion
+</pre>
+
+<a id="toc9" name="toc9"></a>
+<h2>4.2. pwd</h2>
 
 <p>
 La commande <i>pwd</i> affiche le répertoire courant.
 </p>
 
-<h2>3.2. cd</h2>
+<a id="toc10" name="toc10"></a>
+<h2>4.3. cd</h2>
 
 <p>
 La commande <i>cd</i> permet de se déplacer dans le répertoire passé en argument.
@@ -163,6 +310,7 @@ Le caractère <i>-</i> permet de revenir au répertoire précédent. Le caractè
 </p>
 <p>
 <b><u>Exemple :</u></b> :
+    Le répertoire courant devient <i>/usr</i> puis <i>/var</i> puis on revient ensuite dans le répertoire <i>/usr</i> avant de se déplacer dans le <i>home</i> de l'utilisateur.
 </p>
 
 <pre>
@@ -181,17 +329,15 @@ Le caractère <i>-</i> permet de revenir au répertoire précédent. Le caractè
   cd ~
 </pre>
 
-<p>
-    Le répertoire courant devient <i>/usr</i> puis <i>/var</i> puis on revient ensuite dans le répertoire <i>/usr</i> avant de se déplacer dans le <i>home</i> de l'utilisateur.
-</p>
-
-<h2>3.3. ls</h2>
+<a id="toc11" name="toc11"></a>
+<h2>4.4. ls</h2>
 
 <p>
 La commande <i>ls</i> permet de lister le contenu d'un répertoire.
 </p>
 <p>
 <b><u>Exemple :</u></b>
+    Liste tous les fichiers (<i>-a</i>, c'est à dire même les fichiers cachés) avec un affichage détaillé (<i>-l</i>) en les triant par date (<i>-t</i>) du plus ancien au plus récent (<i>-r</i>, inverse l'ordre de tri).
 </p>
 
 <pre>
@@ -199,58 +345,83 @@ La commande <i>ls</i> permet de lister le contenu d'un répertoire.
 </pre>
 
 <p>
-    Liste tous les fichiers (<i>-a</i>, c'est à dire même les fichiers cachés) avec un affichage détaillé (<i>-l</i>) en les triant par date (<i>-t</i>) du plus ancien au plus récent (<i>-r</i>, inverse l'ordre de tri).
+    Liste tous les fichiers du répertoire <i>/var</i> mais n'affiche pas <i>.</i> (alias pour le répertoire courant) ni <i>../</i> (alias pour le répertoire parent)    
 </p>
 
 <pre>
   ls -A /var
 </pre>
 
-<p>
-    Liste tous les fichiers du répertoire <i>/var</i> mais n'affiche pas <i>.</i> (alias pour le répertoire courant) ni <i>../</i> (alias pour le répertoire parent)
-</p>
-
-<h2>3.4. mv</h2>
+<a id="toc12" name="toc12"></a>
+<h2>4.5. mv</h2>
 
 <p>
 La commande <i>mv</i> permet de renommer des fichiers / répertoires.
 </p>
 <p>
 <b><u>Exemple :</u></b>
+    Renomme le fichier <i>http.conf</i> en <i>httpd.conf</i>
 </p>
 
 <pre>
   mv http.conf httpd.conf
 </pre>
 
-<p>
-   Renomme le fichier <i>http.conf</i> en <i>httpd.conf</i>
-</p>
-
-<h2>3.5. cp</h2>
+<a id="toc13" name="toc13"></a>
+<h2>4.6. cp</h2>
 
 <p>
 La commande <i>cp</i> permet de copier des fichiers / répertoires.
 </p>
 <p>
 <b><u>Exemple :</u></b>
+    Copie le contenu de <i>ficsrc</i> dans un second fichier nommé <i>ficdest</i>
 </p>
 
 <pre>
   cp ficsrc ficdest
 </pre>
 
+<a id="toc14" name="toc14"></a>
+<h2>4.7. chmod</h2>
+
 <p>
-   Copie le contenu de <i>ficsrc</i> dans un second fichier nommé <i>ficdest</i>
+La commande <i>chmod</i> permet de changer les droits sur un fichier. Pour le détail du fonctionnement des droits Unix
+voir [<a href="http://fr.wikipedia.org/wiki/Permissions_Unix">http://fr.wikipedia.org/wiki/Permissions_Unix</a>].
+<b><u>Exemple :</u></b>
+Rend récursivement tous les fichiers du répertoire courant accessible en lecture/écriture par le propriétaire, et en lecture seule
+pour le groupe et les autres utilisateurs.
 </p>
 
-<h2>3.6. find</h2>
+<pre>
+  chmod -R 644 *
+</pre>
+
+<p>
+Rend exécutable le fichier <i>monScript.sh</i>. 
+</p>
+
+<pre>
+  chmod +x monScript.sh
+</pre>
+
+<p>
+Pour exécuter le fichier, se placer dans le répertoire parent et taper la commande suivante:
+</p>
+
+<pre>
+  ./monScript.sh
+</pre>
+
+<a id="toc15" name="toc15"></a>
+<h2>4.8. find</h2>
 
 <p>
 La commande <i>find</i> Permet de rechercher des fichiers dans l'arborescence du système de fichiers.
 </p>
 <p>
 <b><u>Exemple :</u></b>
+    Recherche dans le répertoire <i>/usr</i> et dans tous ses sous répertoires tous les fichiers (-type f) dont le nom commence par <i>foo</i>
 </p>
 
 <pre>
@@ -258,21 +429,155 @@ La commande <i>find</i> Permet de rechercher des fichiers dans l'arborescence du
 </pre>
 
 <p>
-    Recherche dans le répertoire <i>/usr</i> et dans tous ses sous répertoires tous les fichiers (-type f) dont le nom commence par <i>foo</i>
+    Recherche dans le répertoire <i>/home</i> (~) de l'utilisateur tous les élément qui se terminent par <i>.jpg</i> et
+    exécute sur chaque élément trouvé la commande <i>convert &lt;fichier&gt;</i>
 </p>
 
 <pre>
   find ~ -name "*.jpg" -exec convert {} basename \{\} .png
 </pre>
 
+<a id="toc16" name="toc16"></a>
+<h2>4.9. du</h2>
+
 <p>
-    Recherche dans le répertoire <i>/home</i> (~) de l'utilisateur tous les élément qui se terminent par <i>.jpg</i> et
-    exécute sur chaque élément trouvé la commande <i>convert &lt;fichier&gt;</i>
+La commande <i>du</i> permet de connaitre l'espace occupé par un fichier ou un répertoire.
+<b><u>Exemple :</u></b>
+Affiche la taille totale du répertoire <i>/home</i>. L'option <i>-h</i> permet d'avoir une taile "human readable".
 </p>
 
-<h1>4. Manipulation de fichiers textes</h1>
+<pre>
+  du -sh /home
+</pre>
 
-<h2>4.1. grep</h2>
+<a id="toc17" name="toc17"></a>
+<h2>4.10. df</h2>
+
+<p>
+La commande <i>df</i> permet d'afficher l'espace disponible sur chacune des partitions du système.
+<b><u>Exemple :</u></b>
+Affiche l'espace occupé et libre sur chacune des partitions du système. L'option <i>-h</i> permet d'avoir une taile "human readable".
+</p>
+
+<pre>
+  df -h
+</pre>
+
+<a id="toc18" name="toc18"></a>
+<h1>5. Manipulation de fichiers textes</h1>
+
+<a id="toc19" name="toc19"></a>
+<h2>5.1. head</h2>
+
+<p>
+La commande <i>head</i> affiche par défaut les 10 premières lignes du fichier passé en argument. Il est possible de
+préciser le nombre de lignes ou la taille en (kilo) octets que l'on souhaite afficher.
+<b><u>Exemple :</u></b>
+Affiche les 27 premières lignes du fichier document.txt
+</p>
+
+<pre>
+  head -27 document.txt
+</pre>
+
+<p>
+Affiche les 2 premiers ko du fichier document.txt
+</p>
+
+<pre>
+  head -c 2K document.txt
+</pre>
+
+<a id="toc20" name="toc20"></a>
+<h2>5.2. tail</h2>
+
+<p>
+La commande <i>tail</i> permet elle d'afficher la fin d'un fichier. L'option <i>-f</i> est particulièrement pratique, car elle
+permet de scruter un fichier de log pour afficher immédiatement sur l'écran les mises à jour de ce fichier.
+<b><u>Exemple :</u></b>
+Affiche les 5 dernières lignes du fichier toto.txt
+</p>
+
+<pre>
+  tail -5 toto.txt
+</pre>
+
+<p>
+Scrute le fichier <i>/var/log/messages.log</i> pour observer les modifications en temps réel.
+</p>
+
+<pre>
+  tail -f /var/log/messages.log
+</pre>
+
+<a id="toc21" name="toc21"></a>
+<h2>5.3. more</h2>
+
+<p>
+La commande <i>more</i> permet d'afficher de façon paginée le contenu d'un long fichier texte. Pour passer à la page
+suivante, il faut appuyer sur <i>espace</i>.
+<b><u>Exemple :</u></b>
+Affiche page par page le contenu du fichier <i>Xorg.0.log</i>
+</p>
+
+<pre>
+  more /var/log/Xorg.0.log
+</pre>
+
+<p>
+Affiche le fichier <i>monFichier.txt</i> en commençant à la ligne 53
+</p>
+
+<pre>
+  more +53 monFichier.txt
+</pre>
+
+<a id="toc22" name="toc22"></a>
+<h2>5.4. sort</h2>
+
+<p>
+La commande <i>sort</i> permet d'afficher le contenu concaténé et trié des fichiers passés en argument. Le tri est
+alphabétique par défaut.
+<b><u>Exemple :</u></b>
+Affiche sur la sortie standard les 3 fichiers <i>list1</i>, <i>list2</i> et <i>list3</i> triés numériquement.
+</p>
+
+<pre>
+  sort -n list1 list2 list3
+</pre>
+
+<p>
+Trie comme dans l'exemple précédent en supprimant les doublons
+</p>
+
+<pre>
+  sort -u -n list1 list2 list3
+</pre>
+
+<a id="toc23" name="toc23"></a>
+<h2>5.5. uniq</h2>
+
+<p>
+Cette commande permet de compter ou de supprimer des lignes en doublons.
+<b><u>Exemple :</u></b>
+Affiche les lignes en doublons du fichier <i>list1</i>
+</p>
+
+<pre>
+  uniq -d list1
+</pre>
+
+<p>
+Affiche le nombre d'occurences de chaque ligne du fichier <i>liste.txt</i>. L'option -i permet d'ignorer la casse pour les
+comparaisons (avec cette option , <i>aa</i>, <i>aA</i> et <i>AA</i> comptent pour 3 occurences de la même chaine).
+</p>
+
+<pre>
+  uniq -i -c liste.txt
+</pre>
+
+<a id="toc24" name="toc24"></a>
+<h2>5.6. grep</h2>
 
 <p>
 La commande <i>grep</i> permet d'effectuer des recherches de chaine de caractères dans des fichiers. La syntaxe est simple :
@@ -305,7 +610,8 @@ Les options les plus pratiques sont les suivantes :
 Pour ces 3 dernières options, chaque groupe de lignes est séparé par la chaine <i>--</i>.
 </p>
 
-<h2>4.2. awk</h2>
+<a id="toc25" name="toc25"></a>
+<h2>5.7. awk</h2>
 
 <p>
 La commande <i>awk</i> permet de nombreuses manipulations sur des fichiers textes. Un tutoriel est disponible ici
@@ -323,6 +629,8 @@ référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par d�
 
 <p>
 <b><u>Exemple</u></b> :
+    Affiche la 4e et la 8e colonne du fichier <i>foo.csv</i> ayant comme séparateur de champ le caractère <i>;</i>
+    Les 2 colonnes sont séparées par le caractère espace.
 </p>
 
 <pre>
@@ -330,21 +638,18 @@ référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par d�
 </pre>
 
 <p>
-Affiche la 4e et la 8e colonne du fichier <i>foo.csv</i> ayant comme séparateur de champ le caractère <i>;</i>
-Les 2 colonnes sont séparées par le caractère espace.
+    Affiche le fichier system.log sans les 3 premières colonnes.
 </p>
 
 <pre>
   awk '{ print $1=$2=$3=""; print $0}' system.log
 </pre>
 
-<p>
-Affiche le fichier system.log sans les 3 premières colonnes.
-</p>
+<a id="toc26" name="toc26"></a>
+<h2>5.8. vim</h2>
 
-<h2>4.3. vim</h2>
-
-<h3>4.3.1. Description</h3>
+<a id="toc27" name="toc27"></a>
+<h3>5.8.1. Description</h3>
 
 <p>
 Vim est un éditeur de texte descendant de vi, et qui dispose de plusieurs modes d'éditions. Les plus utilisés sont le mode commande et le mode insertion.
@@ -358,18 +663,15 @@ La touche <b>Echap</b> permet de retourner au mode commande depuis le mode édit
 Pour saisir une commande dans le mode éponyme, il faut utiliser la syntaxe <i>:&lt;commande&gt;</i>
 </p>
 
-<h3>4.3.2. Commandes principales</h3>
-
-<pre>
-  :w
-</pre>
+<a id="toc28" name="toc28"></a>
+<h3>5.8.2. Commandes principales</h3>
 
 <p>
 Pour sauvegarder
 </p>
 
 <pre>
-  :q
+  :w
 </pre>
 
 <p>
@@ -377,7 +679,7 @@ Pour quitter
 </p>
 
 <pre>
-  :wq
+  :q
 </pre>
 
 <p>
@@ -385,7 +687,7 @@ Pour sauvegarder et quitter
 </p>
 
 <pre>
-  :/toto
+  :wq
 </pre>
 
 <p>
@@ -393,7 +695,7 @@ Pour chercher la chaine "toto" dans le fichier courant
 </p>
 
 <pre>
-  :$
+  :/toto
 </pre>
 
 <p>
@@ -401,7 +703,7 @@ Envoie le curseur en fin de fichier
 </p>
 
 <pre>
-  :15
+  :$
 </pre>
 
 <p>
@@ -409,7 +711,7 @@ Positionne le curseur sur la ligne 15 du fichier courant
 </p>
 
 <pre>
-  :set ff=unix
+  :15
 </pre>
 
 <p>
@@ -418,7 +720,7 @@ Utilise des fins de ligne Unix (\n) pour le fichier courant. Pour utiliser des f
 </p>
 
 <pre>
-  :dd
+  :set ff=unix
 </pre>
 
 <p>
@@ -426,7 +728,7 @@ Supprime la ligne courante
 </p>
 
 <pre>
-  :d20
+  :dd
 </pre>
 
 <p>
@@ -434,7 +736,7 @@ Efface 20 lignes à partir du curseur
 </p>
 
 <pre>
-  :set syntax on
+  :d20
 </pre>
 
 <p>
@@ -442,7 +744,7 @@ Active la coloration syntaxique (<i>off</i> pour désactiver).
 </p>
 
 <pre>
-  :set background=dark
+  :set syntax on
 </pre>
 
 <p>
@@ -450,14 +752,19 @@ Active un jeu de couleur (pour la coloration syntaxique) plus lisible pour les t
 </p>
 
 <pre>
-  :set number
+  :set background=dark
 </pre>
 
 <p>
 Affiche les numéros de lignes. <i>nonumber</i> pour les masquer.
 </p>
 
-<h3>4.3.3. Raccourcis claviers</h3>
+<pre>
+  :set number
+</pre>
+
+<a id="toc29" name="toc29"></a>
+<h3>5.8.3. Raccourcis claviers</h3>
 
 <p>
 Raccourcis clavier du mode commande :
@@ -478,9 +785,12 @@ Raccourcis clavier du mode commande :
 </li>
 <li><i>u</i> : Undo. Annule la dernière commande. <i>u&lt;N&gt;</i> Permet d'annuler les <i>&lt;N&gt;</i> dernières commandes.
 </li>
+<li><i>Ctrl-R</i> : Redo. Permet de refaire le dernier changement défait.
+</li>
 </ul>
 
-<h3>4.3.4. Copier/coller</h3>
+<a id="toc30" name="toc30"></a>
+<h3>5.8.4. Copier/coller</h3>
 
 <ul>
 <li>Positionner le curseur au début de la zone à copier ou couper.
@@ -497,36 +807,36 @@ Raccourcis clavier du mode commande :
 </li>
 </ul>
 
-<h1>5. Notion de pipe</h1>
+<a id="toc31" name="toc31"></a>
+<h1>6. Notion de pipe</h1>
 
 <p>
 Le pipe (caractère |) permet de brancher la sortie d'une commande sur l'entrée d'une autre, afin d'enchainer des traitements, par exemple de filtrer un fichier texte :
 </p>
 <p>
 <b><u>Exemple :</u></b>
+Recherche la chaine <i>2012/08/01</i> dans le fichier access.log. La sortie du grep est ensuite branchée sur la commande
+awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. Pour finir on se branche sur la commande
+<i>sort</i> qui va trier le tout par ordre décroissant (option <i>r</i>) en effectuant un tri numérique (option <i>n</i>).
 </p>
 
 <pre>
   grep "2012/08/01" access.log | awk '{ print $15 " " $1}' |sort -rn
 </pre>
 
+<hr class="heavy" />
+
+<a id="toc32" name="toc32"></a>
+<h1>7. Remerciements</h1>
+
 <p>
-Recherche la chaine <i>2012/08/01</i> dans le fichier access.log. La sortie du grep est ensuite branchée sur la commande
-awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. Pour finir on se branche sur la commande
-<i>sort</i> qui va trier le tout par ordre décroissant (option <i>r</i>) en effectuant un tri numérique (option <i>n</i>).
+Merci à N. Boussedra, D. Guérin, L. Courvoisier et G. Euzet pour leurs suggestions.
 </p>
 
 <hr class="heavy" />
 
-<h1>6. Remerciements</h1>
-
-<p>
-Merci à N. Boussedra, D. Guérin, et L. Courvoisier pour leurs suggestions.
-</p>
-
-<hr class="heavy" />
-
-<h1>7. Bibliographie</h1>
+<a id="toc33" name="toc33"></a>
+<h1>8. Bibliographie</h1>
 
 <ul>
 <li>[<a href="http://fr.wikipedia.org/wiki/Vim">http://fr.wikipedia.org/wiki/Vim</a>]
