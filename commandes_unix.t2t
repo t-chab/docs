@@ -51,6 +51,7 @@ Met en pause le process courant (envoi d'un signal **SIGSTP**). Il faut utiliser
 
 La commande //echo// permet d'afficher une ligne de texte à l'écran.
 
+**__Exemple__** :
 Affiche //Ceci est une ligne de texte// sur l'écran
 ``` echo Ceci est une ligne de texte
 
@@ -79,7 +80,7 @@ La commande //man// permet d'afficher le manuel d'utilisation de la commande pas
 La commande //cat// permet de concaténer des fichiers, mais aussi d'envoyer le contenu d'un fichier sur la sortie
 standard.
 
-**_Exemple_** :
+**__Exemple__** :
 
 Afficher le contenu du fichier //document.txt//
 ``` cat document.txt
@@ -133,7 +134,7 @@ La commande //cp// permet de copier des fichiers / répertoires.
 
 La commande //chmod// permet de changer les droits sur un fichier. Pour le détail du fonctionnement des droits Unix
 voir [URLUNIXFILEPERMS].
-
+**__Exemple :__**
 Rend récursivement tous les fichiers du répertoire courant accessible en lecture/écriture par le propriétaire, et en lecture seule
 pour le groupe et les autres utilisateurs.
 ``` chmod -R 644 *
@@ -156,14 +157,14 @@ La commande //find// Permet de rechercher des fichiers dans l'arborescence du sy
 ++ du ++
 
 La commande //du// permet de connaitre l'espace occupé par un fichier ou un répertoire.
-
+**__Exemple :__**
 Affiche la taille totale du répertoire ///home//. L'option //-h// permet d'avoir une taile "human readable".
 ``` du -sh /home
 
 ++ df ++
 
 La commande //df// permet d'afficher l'espace disponible sur chacune des partitions du système.
-
+**__Exemple :__**
 Affiche l'espace occupé et libre sur chacune des partitions du système. L'option //-h// permet d'avoir une taile "human readable".
 ``` df -h
 
@@ -173,7 +174,7 @@ Affiche l'espace occupé et libre sur chacune des partitions du système. L'opti
 
 La commande //head// affiche par défaut les 10 premières lignes du fichier passé en argument. Il est possible de
 préciser le nombre de lignes ou la taille en (kilo) octets que l'on souhaite afficher.
-
+**__Exemple :__**
 Affiche les 27 premières lignes du fichier document.txt
 ``` head -27 document.txt
 Affiche les 2 premiers ko du fichier document.txt
@@ -183,7 +184,7 @@ Affiche les 2 premiers ko du fichier document.txt
 
 La commande //tail// permet elle d'afficher la fin d'un fichier. L'option //-f// est particulièrement pratique, car elle
 permet de scruter un fichier de log pour afficher immédiatement sur l'écran les mises à jour de ce fichier.
-
+**__Exemple :__**
 Affiche les 5 dernières lignes du fichier toto.txt
 ``` tail -5 toto.txt
 Scrute le fichier ///var/log/messages.log// pour observer les modifications en temps réel.
@@ -193,7 +194,7 @@ Scrute le fichier ///var/log/messages.log// pour observer les modifications en t
 
 La commande //more// permet d'afficher de façon paginée le contenu d'un long fichier texte. Pour passer à la page
 suivante, il faut appuyer sur //espace//.
-
+**__Exemple :__**
 Affiche page par page le contenu du fichier //Xorg.0.log//
 ``` more /var/log/Xorg.0.log
 Affiche le fichier //monFichier.txt// en commençant à la ligne 53
@@ -203,7 +204,7 @@ Affiche le fichier //monFichier.txt// en commençant à la ligne 53
 
 La commande //sort// permet d'afficher le contenu concaténé et trié des fichiers passés en argument. Le tri est
 alphabétique par défaut.
-
+**__Exemple :__**
 Affiche sur la sortie standard les 3 fichiers //list1//, //list2// et //list3// triés numériquement.
 ``` sort -n list1 list2 list3
 Trie comme dans l'exemple précédent en supprimant les doublons
@@ -212,7 +213,7 @@ Trie comme dans l'exemple précédent en supprimant les doublons
 ++ uniq ++
 
 Cette commande permet de compter ou de supprimer des lignes en doublons.
-
+**__Exemple :__**
 Affiche les lignes en doublons du fichier //list1//
 ``` uniq -d list1
 Affiche le nombre d'occurences de chaque ligne du fichier //liste.txt//. L'option -i permet d'ignorer la casse pour les
@@ -302,6 +303,7 @@ Raccourcis clavier du mode commande :
 - //l// : Déplace le curseur d'un caractère vers la droite.
 - //A// : Envoie le curseur a la fin de la ligne courante et bascule en mode insertion.
 - //u// : Undo. Annule la dernière commande. //u<N>// Permet d'annuler les //<N>// dernières commandes.
+- Ctrl-R : Redo. Permet de refaire le dernier changement défait.
 
 
 +++ Copier/coller  +++
@@ -312,7 +314,6 @@ Raccourcis clavier du mode commande :
 - Appuyer sur //d// (delete) pour couper ou sur //y// (yank) pour copier.
 - Déplacer le curseur vers la zone cible de la copie ou du déplacement.
 - Appuyer sur //p// pour coller après le curseur ou //P// pour coller avant le curseur.
-
 
 + Notion de pipe +
 
