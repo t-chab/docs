@@ -344,6 +344,7 @@ Raccourcis clavier du mode commande :
 - Déplacer le curseur vers la zone cible de la copie ou du déplacement.
 - Appuyer sur //p// pour coller après le curseur ou //P// pour coller avant le curseur.
 
+
 +++ Comparaison de fichier  +++
 
 Une option très pratique de vim est l'option //-d// qui permet de comparer deux fichiers. Elle s'utilise de la façon
@@ -447,7 +448,7 @@ awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. 
 
 + Remerciements +
 
-Merci à N. Boussedra, D. Guérin, L. Courvoisier et G. Euzet pour leurs suggestions, et à F. Meaude pour la relecture.
+Merci à N. Boussedra, D. Guérin, L. Courvoisier, G. Euzet et F. Minier pour leurs suggestions, et à F. Meaude pour la relecture.
 
 ====================
 
