@@ -315,6 +315,31 @@ Raccourcis clavier du mode commande :
 - Déplacer le curseur vers la zone cible de la copie ou du déplacement.
 - Appuyer sur //p// pour coller après le curseur ou //P// pour coller avant le curseur.
 
++++ Comparaison de fichier  +++
+
+Une option très pratique de vim est l'option //-d// qui permet de comparer deux fichiers. Elle s'utilise de la façon
+suivante :
+
+``` vim -d //fichier1// //fichier2//
+
+L'éditeur s'ouvre alors avec //fichier1// dans la partie gauche de l'écran et //fichier2// sur la partie droite. Les
+différences entre les deux fichiers sont mises en évidence, et il est possible d'utiliser les raccourcis claviers
+suivants :
+
+Récupère la différence courante depuis //fichier2// et l'insère dans //fichier1//
+``` :diffget 
+
+Envoi la différence courante de //fichier1// vers //fichier2//
+``` :diffput
+
+Déplace le curseur sur la prochaine différence :
+``` ]c
+
+Déplace le curseur sur la différence précédente :
+``` [c
+
+Passer d'un panneau à l'autre
+``` Ctrl-W
 
 + Notion de pipe +
 
