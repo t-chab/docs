@@ -10,6 +10,7 @@ Dernière mise à jour: %%mtime(%c)
 %!preproc: URLBOOKMARKCHEAT http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html
 %!preproc: URLAWKTUTO http://nyal.developpez.com/tutoriel/gawk/index.php
 %!preproc: URLUNIXFILEPERMS http://fr.wikipedia.org/wiki/Permissions_Unix
+%!preproc: AWKLIB http://www.gnu.org/software/gawk/manual/gawk.html#Built_002din
 
 = Commandes Unix =
 ====================
@@ -240,7 +241,10 @@ Pour ces 3 dernières options, chaque groupe de lignes est séparé par la chain
 La commande //awk// permet de nombreuses manipulations sur des fichiers textes. Un tutoriel est disponible ici
 [URLAWKTUTO]. Elle est très pratique pour réordonner les colonnes d'un fichier texte, ou le filtrer en n'affichant que certaines
 colonnes. Les colonnes sont référencées par //$<index>//. Par exemple la colonne 3 est référencée par //$3//. //$0//
-référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par défaut est le caractère espace.
+référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par défaut est le caractère espace. Il est
+également possible d'appeler plusieurs fonctions prédéfinies dans awk pour retraiter les champs, comme des fonctions
+mathématiques (//sum()//,//log()//,//cos()//, etc ...) ou des fonctions de manipulation de chaines de
+caractères (//split()//,//length()//, //substr()//, etc ...). Pour le détail des fonctions possibles, voir [AWKLIB]
 
 **__Syntaxe "one-line" :__**
 ``` awk -F "<séparateur>" '{ suite de commandes [...] }'
@@ -251,6 +255,31 @@ référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par d�
 ``` awk -F ";" '{ print $4 " " $8}' foo.csv
     Affiche le fichier system.log sans les 3 premières colonnes.
 ``` awk '{ print $1=$2=$3=""; print $0}' system.log
+
+++ cut ++
+
+La commande //cut// permet de tailler des lignes de texte. Branchée sur un pipe, elle peut dans certains cas remplacer
+//awk//. Il existe deux modes de fonctionnement :
+
+Le mode sélection par colonne : cet exemple n'affiche que les caractères 7 à 23 de chaque ligne du fichier passé en
+  argument :
+``` cut -c7-23 //fichier// 
+
+Le mode sélection par champs : cet exemple va afficher les champs 3 __et__ 6 du fichier en argument, en utilisant le
+  caractère //;// comme séparateur de champ :
+``` cut -d";" -f3,6 //fichier//
+Variante pour afficher les champs 3 __à__ 6 :
+``` cut -d";" -f3-6 //fichier//
+Remarque : si l'option //-s// n'est pas spécifiée, la commande affiche également les lignes qui ne contiennent aucun
+caractère délimiteur de champs.
+
+++ paste ++
+
+La commande paste est complémentaire de //cut// et permet de fusionner des lignes.
+
+**__Exemple__** :
+    Construit un CSV à partir des fichiers fic1, fic2 et fic3
+``` paste -d";" fic1 fic2 fic3
 
 ++ vim ++
 
@@ -364,4 +393,5 @@ Merci à N. Boussedra, D. Guérin, L. Courvoisier et G. Euzet pour leurs suggest
 - [URLWIKIVIM]
 - [URLWIKIBASH]
 - [URLBOOKMARKCHEAT]
+- [AWKLIB]
 
