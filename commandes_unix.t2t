@@ -370,6 +370,69 @@ Déplace le curseur sur la différence précédente :
 Passer d'un panneau à l'autre
 ``` Ctrl-W
 
++ Informations Système +
+
+++ dmesg ++
+
+La commande //dmesg// est utilisée la plupart du temps pour afficher le tampon des messages du noyau. C'est une commande
+pratique pour consulter les logs de démarrage du système.
+
+**__Exemple__** :
+
+Affiche le tampon des messages du noyau
+``` dmesg
+
+++ /proc/cpuinfo ++
+
+Ce fichier contient des informations détaillées sur le ou les cores du CPU de la machine.
+
+Afficher les informations du fichier ///proc/cpuinfo//
+``` cat /proc/cpuinfo
+
+++ /proc/meminfo ++
+
+Ce fichier contient des informations détaillées sur la RAM de la machine.
+
+Afficher les informations du fichier ///proc/meminfo//
+``` cat /proc/meminfo
+
+++ uname ++
+
+La commande //uname// permet d'afficher notamment la version du noyau, ainsi que d'autres informations système.
+
+Sortie la plus détaillée de la commande uname :
+``` uname -a
+
++ Autres commandes +
+
+++ mount ++
+
+La commande //mount// permet de monter un système de fichier dans un répertoire de l'arborescence.
+
+**__Exemple__**
+
+Monter une clef usb sous le répertoire ///media//
+``` mount -t vfat /dev/sdb /media
+Monter une image ISO sous le répertoire ///cdrom//
+``` mount -o loop monFichier.iso /cdrom
+Remonter la racine du système de fichier en read/write (pratique en mode recovery)
+``` mount -o remount,rw /
+
+++ tar ++
+
+La commande //tar// (pour **ta**pe **ar**chiver) permet de créer des archives contenant tout ou une partie de
+l'arborescence du système de fichier. Elle a pour avantages de stocker dans l'archive l'état des permissions sur chaque
+fichier ou répertoire du //path// à partir duquel l'archive est créée.
+
+**__Exemple__**
+
+Archive dans le fichier //backup.tar// le répertoire ///home/
+``` tar cvf backup.tar /home
+Extrait le contenu de l'archive //backup.tar// dans le répertoire courant
+``` tar xvf backup.tar
+Copie tous les fichiers et sous-répertoires du dossier courant vers le répertoire cible ///destination//
+``` tar cf - * | ( cd /destination; tar xfp -)
+
 + Notion de pipe +
 
 Le pipe (caractère |) permet de brancher la sortie d'une commande sur l'entrée d'une autre, afin d'enchainer des traitements, par exemple de filtrer un fichier texte :
