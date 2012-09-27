@@ -53,7 +53,7 @@ Met en pause le process courant (envoi d'un signal **SIGSTP**). Il faut utiliser
 La commande //echo// permet d'afficher une ligne de texte à l'écran.
 
 **__Exemple__** :
---------------------
+
 Affiche //Ceci est une ligne de texte// sur l'écran
 ``` echo Ceci est une ligne de texte
 
@@ -68,9 +68,8 @@ interprétés comme des retour chariots.
 La commande //man// permet d'afficher le manuel d'utilisation de la commande passé en argument.
 
 **__Exemple__** :
---------------------
 
-    Affiche l'aide de la commande //ls//, avec le détail des options.
+Affiche l'aide de la commande //ls//, avec le détail des options.
 ``` man ls
     Convertit le manuel de la commande //bash// en fichier Postscript.
 ``` man -t bash > bash.ps
@@ -85,7 +84,6 @@ La commande //cat// permet de concaténer des fichiers, mais aussi d'envoyer le 
 standard.
 
 **__Exemple__** :
---------------------
 
 Afficher le contenu du fichier //document.txt//
 ``` cat document.txt
@@ -102,8 +100,7 @@ La commande //pwd// affiche le répertoire courant.
 La commande //cd// permet de se déplacer dans le répertoire passé en argument.
 Le caractère //-// permet de revenir au répertoire précédent. Le caractère //~// pointe vers le répertoire //home// de l'utilisateur courant.
 
-**__Exemple :__** :
---------------------
+**__Exemple__** :
 
 Le répertoire courant devient ///usr// puis ///var// puis on revient ensuite dans le répertoire ///usr// avant de se déplacer dans le //home// de l'utilisateur.
 ``` cd /usr
@@ -115,8 +112,8 @@ Le répertoire courant devient ///usr// puis ///var// puis on revient ensuite da
 
 La commande //ls// permet de lister le contenu d'un répertoire.
 
-**__Exemple :__**
---------------------
+**__Exemple__** :
+
     Liste tous les fichiers (//-a//, c'est à dire même les fichiers cachés) avec un affichage détaillé (//-l//) en les triant par date (//-t//) du plus ancien au plus récent (//-r//, inverse l'ordre de tri).
 ``` ls -alrt
     Liste tous les fichiers du répertoire ///var// mais n'affiche pas //.// (alias pour le répertoire courant) ni //../// (alias pour le répertoire parent)    
@@ -126,8 +123,8 @@ La commande //ls// permet de lister le contenu d'un répertoire.
 
 La commande //mv// permet de renommer des fichiers / répertoires.
 
-**__Exemple :__**
---------------------
+**__Exemple__** :
+
     Renomme le fichier //http.conf// en //httpd.conf//
 ``` mv http.conf httpd.conf
 
@@ -135,7 +132,8 @@ La commande //mv// permet de renommer des fichiers / répertoires.
 
 La commande //cp// permet de copier des fichiers / répertoires.
 
-**__Exemple :__**
+**__Exemple__** :
+
     Copie le contenu de //ficsrc// dans un second fichier nommé //ficdest//
 ``` cp ficsrc ficdest
 
@@ -143,8 +141,9 @@ La commande //cp// permet de copier des fichiers / répertoires.
 
 La commande //chmod// permet de changer les droits sur un fichier. Pour le détail du fonctionnement des droits Unix
 voir [URLUNIXFILEPERMS].
-**__Exemple :__**
---------------------
+
+**__Exemple__** :
+
 Rend récursivement tous les fichiers du répertoire courant accessible en lecture/écriture par le propriétaire, et en lecture seule
 pour le groupe et les autres utilisateurs.
 ``` chmod -R 644 *
@@ -157,8 +156,8 @@ Pour exécuter le fichier, se placer dans le répertoire parent et taper la comm
 
 La commande //find// Permet de rechercher des fichiers dans l'arborescence du système de fichiers.
 
-**__Exemple :__**
---------------------
+**__Exemple__** :
+
     Recherche dans le répertoire ///usr// et dans tous ses sous répertoires tous les fichiers (-type f) dont le nom commence par //foo//
 ``` find /usr -type f -name "foo*"
     Recherche dans le répertoire //~/photos// tous les fichiers qui se terminent par //.jpg// et exécute sur chaque élément
@@ -168,16 +167,18 @@ La commande //find// Permet de rechercher des fichiers dans l'arborescence du sy
 ++ du ++
 
 La commande //du// permet de connaitre l'espace occupé par un fichier ou un répertoire.
-**__Exemple :__**
---------------------
+
+**__Exemple__** :
+
 Affiche la taille totale du répertoire ///home//. L'option //-h// permet d'avoir une taile "human readable".
 ``` du -sh /home
 
 ++ df ++
 
 La commande //df// permet d'afficher l'espace disponible sur chacune des partitions du système.
-**__Exemple :__**
---------------------
+
+**__Exemple__** :
+
 Affiche l'espace occupé et libre sur chacune des partitions du système. L'option //-h// permet d'avoir une taile "human readable".
 ``` df -h
 
@@ -187,8 +188,9 @@ Affiche l'espace occupé et libre sur chacune des partitions du système. L'opti
 
 La commande //head// affiche par défaut les 10 premières lignes du fichier passé en argument. Il est possible de
 préciser le nombre de lignes ou la taille en (kilo) octets que l'on souhaite afficher.
-**__Exemple :__**
---------------------
+
+**__Exemple__** :
+
 Affiche les 27 premières lignes du fichier document.txt
 ``` head -27 document.txt
 Affiche les 2 premiers ko du fichier document.txt
@@ -198,8 +200,9 @@ Affiche les 2 premiers ko du fichier document.txt
 
 La commande //tail// permet elle d'afficher la fin d'un fichier. L'option //-f// est particulièrement pratique, car elle
 permet de scruter un fichier de log pour afficher immédiatement sur l'écran les mises à jour de ce fichier.
-**__Exemple :__**
---------------------
+
+**__Exemple__** :
+
 Affiche les 5 dernières lignes du fichier toto.txt
 ``` tail -5 toto.txt
 Scrute le fichier ///var/log/messages.log// pour observer les modifications en temps réel.
@@ -209,8 +212,9 @@ Scrute le fichier ///var/log/messages.log// pour observer les modifications en t
 
 La commande //more// permet d'afficher de façon paginée le contenu d'un long fichier texte. Pour passer à la page
 suivante, il faut appuyer sur //espace//.
-**__Exemple :__**
---------------------
+
+**__Exemple__** :
+
 Affiche page par page le contenu du fichier //Xorg.0.log//
 ``` more /var/log/Xorg.0.log
 Affiche le fichier //monFichier.txt// en commençant à la ligne 53
@@ -227,8 +231,9 @@ du mode "scrutation", il faut utiliser le raccourci //Ctrl-C//.
 
 La commande //sort// permet d'afficher le contenu concaténé et trié des fichiers passés en argument. Le tri est
 alphabétique par défaut.
-**__Exemple :__**
---------------------
+
+**__Exemple__** :
+
 Affiche sur la sortie standard les 3 fichiers //list1//, //list2// et //list3// triés numériquement.
 ``` sort -n list1 list2 list3
 Trie comme dans l'exemple précédent en supprimant les doublons
@@ -237,8 +242,9 @@ Trie comme dans l'exemple précédent en supprimant les doublons
 ++ uniq ++
 
 Cette commande permet de compter ou de supprimer des lignes en doublons.
-**__Exemple :__**
---------------------
+
+**__Exemple__** :
+
 Affiche les lignes en doublons du fichier //list1//
 ``` uniq -d list1
 Affiche le nombre d'occurences de chaque ligne du fichier //liste.txt//. L'option -i permet d'ignorer la casse pour les
@@ -274,7 +280,7 @@ caractères (//split()//,//length()//, //substr()//, etc ...). Pour le détail d
 ``` awk -F "<séparateur>" '{ suite de commandes [...] }'
 
 **__Exemple__** :
---------------------
+
     Affiche la 4e et la 8e colonne du fichier //foo.csv// ayant comme séparateur de champ le caractère //;//
     Les 2 colonnes sont séparées par le caractère espace.
 ``` awk -F ";" '{ print $4 " " $8}' foo.csv
@@ -303,7 +309,7 @@ caractère délimiteur de champs.
 La commande paste est complémentaire de //cut// et permet de fusionner des lignes.
 
 **__Exemple__** :
---------------------
+
     Construit un CSV à partir des fichiers fic1, fic2 et fic3
 ``` paste -d";" fic1 fic2 fic3
 
@@ -405,7 +411,7 @@ La commande //dmesg// est utilisée la plupart du temps pour afficher le tampon 
 pratique pour consulter les logs de démarrage du système.
 
 **__Exemple__** :
---------------------
+
 Affiche le tampon des messages du noyau
 ``` dmesg
 
@@ -432,14 +438,14 @@ ligne  //-/+ buffers/cache// récapitule la quantité de mémoire physique actue
 colonne), ainsi que la quantité de mémoire disponible pour les applications (seconde colonne). C'est cette ligne qui
 indique //"Combien de RAM il reste"//. Pour cette ligne, le calcul est donc fait de la façon suivante :
 
-+/- buffer/cache used = Memory used (1e ligne) - (buffers (1e ligne) + cache (1e ligne))
-+/- buffer/cache  free = Memory free (1e ligne + buffers (1e ligne) + cache (1e ligne)
+- +/- buffer/cache used = Memory used (1e ligne) - (buffers (1e ligne) + cache (1e ligne))
+- +/- buffer/cache  free = Memory free (1e ligne + buffers (1e ligne) + cache (1e ligne)
+
 
 La dernière ligne concerne le Swap.
 
+**__Exemple__** :
 
-**_Exemple_** :
---------------------
 Affiche les quantités de mémoire et le swap en kilo-octets.
 ``` free -k
 
@@ -474,8 +480,8 @@ Sortie la plus détaillée de la commande uname :
 
 La commande //mount// permet de monter un système de fichier dans un répertoire de l'arborescence.
 
-**__Exemple__**
---------------------
+**__Exemple__** :
+
 Monter une clef usb sous le répertoire ///media//
 ``` mount -t vfat /dev/sdb /media
 Monter une image ISO sous le répertoire ///cdrom//
@@ -489,8 +495,8 @@ La commande //tar// (pour **ta**pe **ar**chiver) permet de créer des archives c
 l'arborescence du système de fichier. Elle a pour avantages de stocker dans l'archive l'état des permissions sur chaque
 fichier ou répertoire du //path// à partir duquel l'archive est créée.
 
-**__Exemple__**
---------------------
+**__Exemple__** :
+
 Archive dans le fichier //backup.tar// le répertoire ///home/
 ``` tar cvf backup.tar /home
 Extrait le contenu de l'archive //backup.tar// dans le répertoire courant
@@ -503,8 +509,8 @@ Copie tous les fichiers et sous-répertoires du dossier courant vers le réperto
 La commande //basename// permet de supprimer le suffixe du nom de fichier passé en argument. Elle utilisée
 principalement pour des traitements par lots sur des fichiers (voir exemples commande //find//).
 
-**__Exemple__**
---------------------
+**__Exemple__** :
+
 Retourne toto (toto.jpg avec le suffixe //.jpg// en moins).
 ``` basename toto.jpg .jpg
 
@@ -524,8 +530,8 @@ syntaxe est la suivante :
 - **JJJ** correspond au nom du jour sur 3 lettres (mon, tue, wed, etc ...) ou bien au numéro du jour dans la semaine
   (0-7, avec 0=7=Dimanche)
 
-**__Exemple__**
---------------------
+
+**__Exemple__** :
 
 Editer le fichier de planification :
 ``` crontab -e
@@ -533,8 +539,7 @@ Editer le fichier de planification :
 Afficher le fichier de planification :
 ``` crontab -l
 
-**__Exemples de crontab__**
---------------------
+**__Exemples de crontab__** :
 
 Compresse tous les premiers du mois à 23h30 le fichier ~/archive.log
 ```  30 23 1 * * gzip -9 ~/archive.log
@@ -546,8 +551,8 @@ Toutes les 5mn , supprime le fichier /tmp/test.tmp
 
 Le pipe (caractère |) permet de brancher la sortie d'une commande sur l'entrée d'une autre, afin d'enchainer des traitements, par exemple de filtrer un fichier texte :
 
-**__Exemple :__**
---------------------
+**__Exemple__** :
+
 Recherche la chaine //2012/08/01// dans le fichier access.log. La sortie du grep est ensuite branchée sur la commande
 awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. Pour finir on se branche sur la commande
 //sort// qui va trier le tout par ordre décroissant (option //r//) en effectuant un tri numérique (option //n//).

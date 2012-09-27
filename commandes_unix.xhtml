@@ -11,7 +11,7 @@
 <div align="center">
 <h1>Guide de survie sous Unix</h1>
 <h2>&lt;tchabaud@sqli.com&gt;</h2>
-<h3>Dernière mise à jour: Thu Sep 20 22:52:25 2012</h3>
+<h3>Dernière mise à jour: Thu Sep 27 22:31:53 2012</h3>
 </div>
 
 <p></p>
@@ -67,33 +67,67 @@
     </li>
     <li><a href="#toc21">5.3. more</a>
     </li>
-    <li><a href="#toc22">5.4. sort</a>
+    <li><a href="#toc22">5.4. less</a>
     </li>
-    <li><a href="#toc23">5.5. uniq</a>
+    <li><a href="#toc23">5.5. sort</a>
     </li>
-    <li><a href="#toc24">5.6. grep</a>
+    <li><a href="#toc24">5.6. uniq</a>
     </li>
-    <li><a href="#toc25">5.7. awk</a>
+    <li><a href="#toc25">5.7. grep</a>
     </li>
-    <li><a href="#toc26">5.8. vim</a>
+    <li><a href="#toc26">5.8. awk</a>
+    </li>
+    <li><a href="#toc27">5.9. cut</a>
+    </li>
+    <li><a href="#toc28">5.10. paste</a>
+    </li>
+    <li><a href="#toc29">5.11. vim</a>
       <ul>
-      <li><a href="#toc27">5.8.1. Description</a>
+      <li><a href="#toc30">5.11.1. Description</a>
       </li>
-      <li><a href="#toc28">5.8.2. Commandes principales</a>
+      <li><a href="#toc31">5.11.2. Commandes principales</a>
       </li>
-      <li><a href="#toc29">5.8.3. Raccourcis claviers</a>
+      <li><a href="#toc32">5.11.3. Raccourcis claviers</a>
       </li>
-      <li><a href="#toc30">5.8.4. Copier/coller</a>
+      <li><a href="#toc33">5.11.4. Copier/coller</a>
+      </li>
+      <li><a href="#toc34">5.11.5. Comparaison de fichier</a>
       </li>
       </ul>
     </li>
     </ul>
   </li>
-  <li><a href="#toc31">Notion de pipe</a>
+  <li><a href="#toc35">Informations Système</a>
+    <ul>
+    <li><a href="#toc36">6.1. dmesg</a>
+    </li>
+    <li><a href="#toc37">6.2. free</a>
+    </li>
+    <li><a href="#toc38">6.3. /proc/cpuinfo</a>
+    </li>
+    <li><a href="#toc39">6.4. /proc/meminfo</a>
+    </li>
+    <li><a href="#toc40">6.5. uname</a>
+    </li>
+    </ul>
   </li>
-  <li><a href="#toc32">Remerciements</a>
+  <li><a href="#toc41">Autres commandes</a>
+    <ul>
+    <li><a href="#toc42">7.1. mount</a>
+    </li>
+    <li><a href="#toc43">7.2. tar</a>
+    </li>
+    <li><a href="#toc44">7.3. basename</a>
+    </li>
+    </ul>
   </li>
-  <li><a href="#toc33">Bibliographie</a>
+  <li><a href="#toc45">Planification avec cron</a>
+  </li>
+  <li><a href="#toc46">Notion de pipe</a>
+  </li>
+  <li><a href="#toc47">Remerciements</a>
+  </li>
+  <li><a href="#toc48">Bibliographie</a>
   </li>
   </ol>
 
@@ -215,6 +249,8 @@ La commande <i>echo</i> permet d'afficher une ligne de texte à l'écran.
 </p>
 <p>
 <b><u>Exemple</u></b> :
+</p>
+<p>
 Affiche <i>Ceci est une ligne de texte</i> sur l'écran
 </p>
 
@@ -242,7 +278,9 @@ La commande <i>man</i> permet d'afficher le manuel d'utilisation de la commande 
 </p>
 <p>
 <b><u>Exemple</u></b> :
-    Affiche l'aide de la commande <i>ls</i>, avec le détail des options.
+</p>
+<p>
+Affiche l'aide de la commande <i>ls</i>, avec le détail des options.
 </p>
 
 <pre>
@@ -309,8 +347,10 @@ La commande <i>cd</i> permet de se déplacer dans le répertoire passé en argum
 Le caractère <i>-</i> permet de revenir au répertoire précédent. Le caractère <i>~</i> pointe vers le répertoire <i>home</i> de l'utilisateur courant.
 </p>
 <p>
-<b><u>Exemple :</u></b> :
-    Le répertoire courant devient <i>/usr</i> puis <i>/var</i> puis on revient ensuite dans le répertoire <i>/usr</i> avant de se déplacer dans le <i>home</i> de l'utilisateur.
+<b><u>Exemple</u></b> :
+</p>
+<p>
+Le répertoire courant devient <i>/usr</i> puis <i>/var</i> puis on revient ensuite dans le répertoire <i>/usr</i> avant de se déplacer dans le <i>home</i> de l'utilisateur.
 </p>
 
 <pre>
@@ -336,7 +376,9 @@ Le caractère <i>-</i> permet de revenir au répertoire précédent. Le caractè
 La commande <i>ls</i> permet de lister le contenu d'un répertoire.
 </p>
 <p>
-<b><u>Exemple :</u></b>
+<b><u>Exemple</u></b> :
+</p>
+<p>
     Liste tous les fichiers (<i>-a</i>, c'est à dire même les fichiers cachés) avec un affichage détaillé (<i>-l</i>) en les triant par date (<i>-t</i>) du plus ancien au plus récent (<i>-r</i>, inverse l'ordre de tri).
 </p>
 
@@ -359,7 +401,9 @@ La commande <i>ls</i> permet de lister le contenu d'un répertoire.
 La commande <i>mv</i> permet de renommer des fichiers / répertoires.
 </p>
 <p>
-<b><u>Exemple :</u></b>
+<b><u>Exemple</u></b> :
+</p>
+<p>
     Renomme le fichier <i>http.conf</i> en <i>httpd.conf</i>
 </p>
 
@@ -374,7 +418,9 @@ La commande <i>mv</i> permet de renommer des fichiers / répertoires.
 La commande <i>cp</i> permet de copier des fichiers / répertoires.
 </p>
 <p>
-<b><u>Exemple :</u></b>
+<b><u>Exemple</u></b> :
+</p>
+<p>
     Copie le contenu de <i>ficsrc</i> dans un second fichier nommé <i>ficdest</i>
 </p>
 
@@ -388,7 +434,11 @@ La commande <i>cp</i> permet de copier des fichiers / répertoires.
 <p>
 La commande <i>chmod</i> permet de changer les droits sur un fichier. Pour le détail du fonctionnement des droits Unix
 voir [<a href="http://fr.wikipedia.org/wiki/Permissions_Unix">http://fr.wikipedia.org/wiki/Permissions_Unix</a>].
-<b><u>Exemple :</u></b>
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Rend récursivement tous les fichiers du répertoire courant accessible en lecture/écriture par le propriétaire, et en lecture seule
 pour le groupe et les autres utilisateurs.
 </p>
@@ -420,7 +470,9 @@ Pour exécuter le fichier, se placer dans le répertoire parent et taper la comm
 La commande <i>find</i> Permet de rechercher des fichiers dans l'arborescence du système de fichiers.
 </p>
 <p>
-<b><u>Exemple :</u></b>
+<b><u>Exemple</u></b> :
+</p>
+<p>
     Recherche dans le répertoire <i>/usr</i> et dans tous ses sous répertoires tous les fichiers (-type f) dont le nom commence par <i>foo</i>
 </p>
 
@@ -429,12 +481,12 @@ La commande <i>find</i> Permet de rechercher des fichiers dans l'arborescence du
 </pre>
 
 <p>
-    Recherche dans le répertoire <i>/home</i> (~) de l'utilisateur tous les élément qui se terminent par <i>.jpg</i> et
-    exécute sur chaque élément trouvé la commande <i>convert &lt;fichier&gt;</i>
+    Recherche dans le répertoire <i>~/photos</i> tous les fichiers qui se terminent par <i>.jpg</i> et exécute sur chaque élément
+    trouvé la commande <i>convert</i> pour les convertir au format png.
 </p>
 
 <pre>
-  find ~ -name "*.jpg" -exec convert {} basename \{\} .png
+  find ~/photos/ -name "*.jpg" -exec convert {} `basename {} .jpg`.png \;
 </pre>
 
 <a id="toc16" name="toc16"></a>
@@ -442,7 +494,11 @@ La commande <i>find</i> Permet de rechercher des fichiers dans l'arborescence du
 
 <p>
 La commande <i>du</i> permet de connaitre l'espace occupé par un fichier ou un répertoire.
-<b><u>Exemple :</u></b>
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Affiche la taille totale du répertoire <i>/home</i>. L'option <i>-h</i> permet d'avoir une taile "human readable".
 </p>
 
@@ -455,7 +511,11 @@ Affiche la taille totale du répertoire <i>/home</i>. L'option <i>-h</i> permet 
 
 <p>
 La commande <i>df</i> permet d'afficher l'espace disponible sur chacune des partitions du système.
-<b><u>Exemple :</u></b>
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Affiche l'espace occupé et libre sur chacune des partitions du système. L'option <i>-h</i> permet d'avoir une taile "human readable".
 </p>
 
@@ -472,7 +532,11 @@ Affiche l'espace occupé et libre sur chacune des partitions du système. L'opti
 <p>
 La commande <i>head</i> affiche par défaut les 10 premières lignes du fichier passé en argument. Il est possible de
 préciser le nombre de lignes ou la taille en (kilo) octets que l'on souhaite afficher.
-<b><u>Exemple :</u></b>
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Affiche les 27 premières lignes du fichier document.txt
 </p>
 
@@ -494,7 +558,11 @@ Affiche les 2 premiers ko du fichier document.txt
 <p>
 La commande <i>tail</i> permet elle d'afficher la fin d'un fichier. L'option <i>-f</i> est particulièrement pratique, car elle
 permet de scruter un fichier de log pour afficher immédiatement sur l'écran les mises à jour de ce fichier.
-<b><u>Exemple :</u></b>
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Affiche les 5 dernières lignes du fichier toto.txt
 </p>
 
@@ -516,7 +584,11 @@ Scrute le fichier <i>/var/log/messages.log</i> pour observer les modifications e
 <p>
 La commande <i>more</i> permet d'afficher de façon paginée le contenu d'un long fichier texte. Pour passer à la page
 suivante, il faut appuyer sur <i>espace</i>.
-<b><u>Exemple :</u></b>
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Affiche page par page le contenu du fichier <i>Xorg.0.log</i>
 </p>
 
@@ -533,12 +605,26 @@ Affiche le fichier <i>monFichier.txt</i> en commençant à la ligne 53
 </pre>
 
 <a id="toc22" name="toc22"></a>
-<h2>5.4. sort</h2>
+<h2>5.4. less</h2>
+
+<p>
+La commande <i>less</i> se définit comme l'opposé de la commande <i>more</i>. Elle propose les mêmes options : pour passer à
+la page suivante, il faut utiliser la touche <i>espace</i>. Le retour à la page précédente se fait avec la touche <i>b</i>, et
+il est possible de scruter un fichier de log comme avec <i>tail -f</i> en utilisant le raccourci <i>Shift-F</i>. Pour sortir
+du mode "scrutation", il faut utiliser le raccourci <i>Ctrl-C</i>.
+</p>
+
+<a id="toc23" name="toc23"></a>
+<h2>5.5. sort</h2>
 
 <p>
 La commande <i>sort</i> permet d'afficher le contenu concaténé et trié des fichiers passés en argument. Le tri est
 alphabétique par défaut.
-<b><u>Exemple :</u></b>
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Affiche sur la sortie standard les 3 fichiers <i>list1</i>, <i>list2</i> et <i>list3</i> triés numériquement.
 </p>
 
@@ -554,12 +640,16 @@ Trie comme dans l'exemple précédent en supprimant les doublons
   sort -u -n list1 list2 list3
 </pre>
 
-<a id="toc23" name="toc23"></a>
-<h2>5.5. uniq</h2>
+<a id="toc24" name="toc24"></a>
+<h2>5.6. uniq</h2>
 
 <p>
 Cette commande permet de compter ou de supprimer des lignes en doublons.
-<b><u>Exemple :</u></b>
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Affiche les lignes en doublons du fichier <i>list1</i>
 </p>
 
@@ -576,8 +666,8 @@ comparaisons (avec cette option , <i>aa</i>, <i>aA</i> et <i>AA</i> comptent pou
   uniq -i -c liste.txt
 </pre>
 
-<a id="toc24" name="toc24"></a>
-<h2>5.6. grep</h2>
+<a id="toc25" name="toc25"></a>
+<h2>5.7. grep</h2>
 
 <p>
 La commande <i>grep</i> permet d'effectuer des recherches de chaine de caractères dans des fichiers. La syntaxe est simple :
@@ -610,14 +700,17 @@ Les options les plus pratiques sont les suivantes :
 Pour ces 3 dernières options, chaque groupe de lignes est séparé par la chaine <i>--</i>.
 </p>
 
-<a id="toc25" name="toc25"></a>
-<h2>5.7. awk</h2>
+<a id="toc26" name="toc26"></a>
+<h2>5.8. awk</h2>
 
 <p>
 La commande <i>awk</i> permet de nombreuses manipulations sur des fichiers textes. Un tutoriel est disponible ici
 [<a href="http://nyal.developpez.com/tutoriel/gawk/index.php">http://nyal.developpez.com/tutoriel/gawk/index.php</a>]. Elle est très pratique pour réordonner les colonnes d'un fichier texte, ou le filtrer en n'affichant que certaines
 colonnes. Les colonnes sont référencées par <i>$&lt;index&gt;</i>. Par exemple la colonne 3 est référencée par <i>$3</i>. <i>$0</i>
-référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par défaut est le caractère espace.
+référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par défaut est le caractère espace. Il est
+également possible d'appeler plusieurs fonctions prédéfinies dans awk pour retraiter les champs, comme des fonctions
+mathématiques (<i>sum()</i>,<i>log()</i>,<i>cos()</i>, etc ...) ou des fonctions de manipulation de chaines de
+caractères (<i>split()</i>,<i>length()</i>, <i>substr()</i>, etc ...). Pour le détail des fonctions possibles, voir [<a href="http://www.gnu.org/software/gawk/manual/gawk.html#Built_002din">http://www.gnu.org/software/gawk/manual/gawk.html#Built_002din</a>]
 </p>
 <p>
 <b><u>Syntaxe "one-line" :</u></b>
@@ -629,6 +722,8 @@ référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par d�
 
 <p>
 <b><u>Exemple</u></b> :
+</p>
+<p>
     Affiche la 4e et la 8e colonne du fichier <i>foo.csv</i> ayant comme séparateur de champ le caractère <i>;</i>
     Les 2 colonnes sont séparées par le caractère espace.
 </p>
@@ -645,11 +740,66 @@ référence l'ensemble des colonnes d'une ligne. Le séparateur de champs par d�
   awk '{ print $1=$2=$3=""; print $0}' system.log
 </pre>
 
-<a id="toc26" name="toc26"></a>
-<h2>5.8. vim</h2>
-
 <a id="toc27" name="toc27"></a>
-<h3>5.8.1. Description</h3>
+<h2>5.9. cut</h2>
+
+<p>
+La commande <i>cut</i> permet de tailler des lignes de texte. Branchée sur un pipe, elle peut dans certains cas remplacer
+<i>awk</i>. Il existe deux modes de fonctionnement :
+</p>
+<p>
+Le mode sélection par colonne : cet exemple n'affiche que les caractères 7 à 23 de chaque ligne du fichier passé en
+  argument :
+</p>
+
+<pre>
+  cut -c7-23 //fichier// 
+</pre>
+
+<p>
+Le mode sélection par champs : cet exemple va afficher les champs 3 <u>et</u> 6 du fichier en argument, en utilisant le
+  caractère <i>;</i> comme séparateur de champ :
+</p>
+
+<pre>
+  cut -d";" -f3,6 //fichier//
+</pre>
+
+<p>
+Variante pour afficher les champs 3 <u>à</u> 6 :
+</p>
+
+<pre>
+  cut -d";" -f3-6 //fichier//
+</pre>
+
+<p>
+Remarque : si l'option <i>-s</i> n'est pas spécifiée, la commande affiche également les lignes qui ne contiennent aucun
+caractère délimiteur de champs.
+</p>
+
+<a id="toc28" name="toc28"></a>
+<h2>5.10. paste</h2>
+
+<p>
+La commande paste est complémentaire de <i>cut</i> et permet de fusionner des lignes.
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
+    Construit un CSV à partir des fichiers fic1, fic2 et fic3
+</p>
+
+<pre>
+  paste -d";" fic1 fic2 fic3
+</pre>
+
+<a id="toc29" name="toc29"></a>
+<h2>5.11. vim</h2>
+
+<a id="toc30" name="toc30"></a>
+<h3>5.11.1. Description</h3>
 
 <p>
 Vim est un éditeur de texte descendant de vi, et qui dispose de plusieurs modes d'éditions. Les plus utilisés sont le mode commande et le mode insertion.
@@ -663,8 +813,8 @@ La touche <b>Echap</b> permet de retourner au mode commande depuis le mode édit
 Pour saisir une commande dans le mode éponyme, il faut utiliser la syntaxe <i>:&lt;commande&gt;</i>
 </p>
 
-<a id="toc28" name="toc28"></a>
-<h3>5.8.2. Commandes principales</h3>
+<a id="toc31" name="toc31"></a>
+<h3>5.11.2. Commandes principales</h3>
 
 <p>
 Pour sauvegarder
@@ -763,8 +913,8 @@ Affiche les numéros de lignes. <i>nonumber</i> pour les masquer.
   :set number
 </pre>
 
-<a id="toc29" name="toc29"></a>
-<h3>5.8.3. Raccourcis claviers</h3>
+<a id="toc32" name="toc32"></a>
+<h3>5.11.3. Raccourcis claviers</h3>
 
 <p>
 Raccourcis clavier du mode commande :
@@ -789,8 +939,8 @@ Raccourcis clavier du mode commande :
 </li>
 </ul>
 
-<a id="toc30" name="toc30"></a>
-<h3>5.8.4. Copier/coller</h3>
+<a id="toc33" name="toc33"></a>
+<h3>5.11.4. Copier/coller</h3>
 
 <ul>
 <li>Positionner le curseur au début de la zone à copier ou couper.
@@ -807,14 +957,357 @@ Raccourcis clavier du mode commande :
 </li>
 </ul>
 
-<a id="toc31" name="toc31"></a>
-<h1>6. Notion de pipe</h1>
+<a id="toc34" name="toc34"></a>
+<h3>5.11.5. Comparaison de fichier</h3>
+
+<p>
+Une option très pratique de vim est l'option <i>-d</i> qui permet de comparer deux fichiers. Elle s'utilise de la façon
+suivante :
+</p>
+
+<pre>
+  vim -d //fichier1// //fichier2//
+</pre>
+
+<p>
+L'éditeur s'ouvre alors avec <i>fichier1</i> dans la partie gauche de l'écran et <i>fichier2</i> sur la partie droite. Les
+différences entre les deux fichiers sont mises en évidence, et il est possible d'utiliser les raccourcis claviers
+suivants :
+</p>
+<p>
+Récupère la différence courante depuis <i>fichier2</i> et l'insère dans <i>fichier1</i>
+</p>
+
+<pre>
+  :diffget 
+</pre>
+
+<p>
+Envoi la différence courante de <i>fichier1</i> vers <i>fichier2</i>
+</p>
+
+<pre>
+  :diffput
+</pre>
+
+<p>
+Déplace le curseur sur la prochaine différence :
+</p>
+
+<pre>
+  ]c
+</pre>
+
+<p>
+Déplace le curseur sur la différence précédente :
+</p>
+
+<pre>
+  [c
+</pre>
+
+<p>
+Passer d'un panneau à l'autre
+</p>
+
+<pre>
+  Ctrl-W
+</pre>
+
+<a id="toc35" name="toc35"></a>
+<h1>6. Informations Système</h1>
+
+<a id="toc36" name="toc36"></a>
+<h2>6.1. dmesg</h2>
+
+<p>
+La commande <i>dmesg</i> est utilisée la plupart du temps pour afficher le tampon des messages du noyau. C'est une commande
+pratique pour consulter les logs de démarrage du système.
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
+Affiche le tampon des messages du noyau
+</p>
+
+<pre>
+  dmesg
+</pre>
+
+<a id="toc37" name="toc37"></a>
+<h2>6.2. free</h2>
+
+<p>
+La commande <i>free</i> permet d'afficher la quantité totale de mémoire physique et de swap disponible.
+3 lignes sont affichées par la sortie de cette commande.
+</p>
+<p>
+La première ligne concerne la mémoire physique, avec les colonnes suivantes :
+</p>
+
+<ul>
+<li><b>total</b> : Indique la quantité de mémoire totale.
+</li>
+<li><b>used</b> : Indique la quantité de mémoire actuellement utilisée.
+</li>
+<li><b>free</b> : Indique la quantité de mémoire disponible (utilisée ni par les processus, ni par le kernel comme cache)
+</li>
+<li><b>shared</b> : Indique la quantité de mémoire partagée par plusieurs processus.
+</li>
+<li><b>buffers</b> : Indique la quantité de mémoire utilisée par le kernel pour accélérer les accès disque. Cette mémoire reste
+  disponible pour les processus, et peut être libérée dès que des applications en ont besoin. Les appels systèmes
+  <i>read()</i> et <i>write()</i> utilisent ce buffer, qui peut grandement accèlerer l'accès aux données par des applications
+  qui font des entrées-sorties.
+</li>
+<li><b>cached</b> : Indique le nombre de pages mémoire cachées par le kernel pour accélèrer des accès futurs.
+</li>
+</ul>
+
+<p>
+Comme la mémoire utilisée pour les buffers et les caches peut facilement être restituée aux applications, la seconde
+ligne  <i>-/+ buffers/cache</i> récapitule la quantité de mémoire physique actuellement allouée a des applications (1e
+colonne), ainsi que la quantité de mémoire disponible pour les applications (seconde colonne). C'est cette ligne qui
+indique <i>"Combien de RAM il reste"</i>. Pour cette ligne, le calcul est donc fait de la façon suivante :
+</p>
+
+<ul>
+<li>+/- buffer/cache used = Memory used (1e ligne) - (buffers (1e ligne) + cache (1e ligne))
+</li>
+<li>+/- buffer/cache  free = Memory free (1e ligne + buffers (1e ligne) + cache (1e ligne)
+</li>
+</ul>
+
+<p>
+La dernière ligne concerne le Swap.
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
+Affiche les quantités de mémoire et le swap en kilo-octets.
+</p>
+
+<pre>
+  free -k
+</pre>
+
+<p>
+Affiche les quantités de mémoire et le swap en méga-octets, avec une ligne qui affiche les totaux pour chaque colonne
+(<i>-t</i>).
+</p>
+
+<pre>
+  free -m -t
+</pre>
+
+<a id="toc38" name="toc38"></a>
+<h2>6.3. /proc/cpuinfo</h2>
+
+<p>
+Ce fichier contient des informations détaillées sur le ou les cores du CPU de la machine.
+</p>
+<p>
+Afficher les informations du fichier <i>/proc/cpuinfo</i>
+</p>
+
+<pre>
+  cat /proc/cpuinfo
+</pre>
+
+<a id="toc39" name="toc39"></a>
+<h2>6.4. /proc/meminfo</h2>
+
+<p>
+Ce fichier contient des informations détaillées sur la RAM de la machine.
+</p>
+<p>
+Afficher les informations du fichier <i>/proc/meminfo</i>
+</p>
+
+<pre>
+  cat /proc/meminfo
+</pre>
+
+<a id="toc40" name="toc40"></a>
+<h2>6.5. uname</h2>
+
+<p>
+La commande <i>uname</i> permet d'afficher notamment la version du noyau, ainsi que d'autres informations système.
+</p>
+<p>
+Sortie la plus détaillée de la commande uname :
+</p>
+
+<pre>
+  uname -a
+</pre>
+
+<a id="toc41" name="toc41"></a>
+<h1>7. Autres commandes</h1>
+
+<a id="toc42" name="toc42"></a>
+<h2>7.1. mount</h2>
+
+<p>
+La commande <i>mount</i> permet de monter un système de fichier dans un répertoire de l'arborescence.
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
+Monter une clef usb sous le répertoire <i>/media</i>
+</p>
+
+<pre>
+  mount -t vfat /dev/sdb /media
+</pre>
+
+<p>
+Monter une image ISO sous le répertoire <i>/cdrom</i>
+</p>
+
+<pre>
+  mount -o loop monFichier.iso /cdrom
+</pre>
+
+<p>
+Remonter la racine du système de fichier en read/write (pratique en mode recovery)
+</p>
+
+<pre>
+  mount -o remount,rw /
+</pre>
+
+<a id="toc43" name="toc43"></a>
+<h2>7.2. tar</h2>
+
+<p>
+La commande <i>tar</i> (pour <b>ta</b>pe <b>ar</b>chiver) permet de créer des archives contenant tout ou une partie de
+l'arborescence du système de fichier. Elle a pour avantages de stocker dans l'archive l'état des permissions sur chaque
+fichier ou répertoire du <i>path</i> à partir duquel l'archive est créée.
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
+Archive dans le fichier <i>backup.tar</i> le répertoire ///home/
+</p>
+
+<pre>
+  tar cvf backup.tar /home
+</pre>
+
+<p>
+Extrait le contenu de l'archive <i>backup.tar</i> dans le répertoire courant
+</p>
+
+<pre>
+  tar xvf backup.tar
+</pre>
+
+<p>
+Copie tous les fichiers et sous-répertoires du dossier courant vers le répertoire cible <i>/destination</i>
+</p>
+
+<pre>
+  tar cf - * | ( cd /destination; tar xfp -)
+</pre>
+
+<a id="toc44" name="toc44"></a>
+<h2>7.3. basename</h2>
+
+<p>
+La commande <i>basename</i> permet de supprimer le suffixe du nom de fichier passé en argument. Elle utilisée
+principalement pour des traitements par lots sur des fichiers (voir exemples commande <i>find</i>).
+</p>
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
+Retourne toto (toto.jpg avec le suffixe <i>.jpg</i> en moins).
+</p>
+
+<pre>
+  basename toto.jpg .jpg
+</pre>
+
+<a id="toc45" name="toc45"></a>
+<h1>8. Planification avec cron</h1>
+
+<p>
+La commande <i>crontab</i> permet de planifier des traitements à exécuter périodiquement. Cette commande édite un fichier
+propre à l'utilisateur, et par sécurité la syntaxe est vérifiée avant la mise à jour du fichier. Si une erreur est
+détectée, le fichier n'est pas sauvegardé. Chaque entrée du fichier (chaque ligne) correspond à une tâche à exécuter. La
+syntaxe est la suivante :
+</p>
+
+<pre>
+  mm hh jj MMM JJJ commande
+</pre>
+
+<ul>
+<li><b>mm</b> correspond au minutes (0-59)
+</li>
+<li><b>hh</b> correspond aux heurese (0-23)
+</li>
+<li><b>jj</b> correspond au jour du mois (1-31)
+</li>
+<li><b>MMM</b> correspond au nom du mois sur 3 lettres (jan, feb, mar, etc ...) ou bien au numéro du mois (1-12)
+</li>
+<li><b>JJJ</b> correspond au nom du jour sur 3 lettres (mon, tue, wed, etc ...) ou bien au numéro du jour dans la semaine
+  (0-7, avec 0=7=Dimanche)
+</li>
+</ul>
+
+<p>
+<b><u>Exemple</u></b> :
+</p>
+<p>
+Editer le fichier de planification :
+</p>
+
+<pre>
+  crontab -e
+</pre>
+
+<p>
+Afficher le fichier de planification :
+</p>
+
+<pre>
+  crontab -l
+</pre>
+
+<p>
+<b><u>Exemples de crontab</u></b> :
+</p>
+<p>
+Compresse tous les premiers du mois à 23h30 le fichier ~/archive.log
+</p>
+
+<pre>
+   30 23 1 * * gzip -9 ~/archive.log
+</pre>
+
+<p>
+Toutes les 5mn , supprime le fichier /tmp/test.tmp
+</p>
+
+<pre>
+  */5 * * * * rm /tmp/test.tmp
+</pre>
+
+<a id="toc46" name="toc46"></a>
+<h1>9. Notion de pipe</h1>
 
 <p>
 Le pipe (caractère |) permet de brancher la sortie d'une commande sur l'entrée d'une autre, afin d'enchainer des traitements, par exemple de filtrer un fichier texte :
 </p>
 <p>
-<b><u>Exemple :</u></b>
+<b><u>Exemple</u></b> :
+</p>
+<p>
 Recherche la chaine <i>2012/08/01</i> dans le fichier access.log. La sortie du grep est ensuite branchée sur la commande
 awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. Pour finir on se branche sur la commande
 <i>sort</i> qui va trier le tout par ordre décroissant (option <i>r</i>) en effectuant un tri numérique (option <i>n</i>).
@@ -826,17 +1319,17 @@ awk qui va afficher les colonnes 15 et 1 de la sortie, séparée par un espace. 
 
 <hr class="heavy" />
 
-<a id="toc32" name="toc32"></a>
-<h1>7. Remerciements</h1>
+<a id="toc47" name="toc47"></a>
+<h1>10. Remerciements</h1>
 
 <p>
-Merci à N. Boussedra, D. Guérin, L. Courvoisier et G. Euzet pour leurs suggestions, et à F. Meaude pour la relecture.
+Merci à N. Boussedra, D. Guérin, L. Courvoisier, G. Euzet et F. Minier pour leurs suggestions, et à F. Meaude pour la relecture.
 </p>
 
 <hr class="heavy" />
 
-<a id="toc33" name="toc33"></a>
-<h1>8. Bibliographie</h1>
+<a id="toc48" name="toc48"></a>
+<h1>11. Bibliographie</h1>
 
 <ul>
 <li>[<a href="http://fr.wikipedia.org/wiki/Vim">http://fr.wikipedia.org/wiki/Vim</a>]
@@ -844,6 +1337,8 @@ Merci à N. Boussedra, D. Guérin, L. Courvoisier et G. Euzet pour leurs suggest
 <li>[<a href="http://fr.wikipedia.org/wiki/Bourne-Again_shell">http://fr.wikipedia.org/wiki/Bourne-Again_shell</a>]
 </li>
 <li>[<a href="http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html">http://www.cyberciti.biz/tips/linux-unix-commands-cheat-sheets.html</a>]
+</li>
+<li>[<a href="http://www.gnu.org/software/gawk/manual/gawk.html#Built_002din">http://www.gnu.org/software/gawk/manual/gawk.html#Built_002din</a>]
 <p></p>
 </li>
 </ul>
