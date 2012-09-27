@@ -151,9 +151,9 @@ La commande //find// Permet de rechercher des fichiers dans l'arborescence du sy
 **__Exemple :__**
     Recherche dans le répertoire ///usr// et dans tous ses sous répertoires tous les fichiers (-type f) dont le nom commence par //foo//
 ``` find /usr -type f -name "foo*"
-    Recherche dans le répertoire ///home// (~) de l'utilisateur tous les élément qui se terminent par //.jpg// et
-    exécute sur chaque élément trouvé la commande //convert <fichier>//
-``` find ~ -name "*.jpg" -exec convert {} basename \{\} .png
+    Recherche dans le répertoire //~/photos// tous les fichiers qui se terminent par //.jpg// et exécute sur chaque élément
+    trouvé la commande //convert// pour les convertir au format png.
+``` find ~/photos/ -name "*.jpg" -exec convert {} `basename {} .jpg`.png \;
 
 ++ du ++
 
@@ -383,6 +383,44 @@ pratique pour consulter les logs de démarrage du système.
 Affiche le tampon des messages du noyau
 ``` dmesg
 
+++ free ++
+
+La commande //free// permet d'afficher la quantité totale de mémoire physique et de swap disponible.
+3 lignes sont affichées par la sortie de cette commande.
+
+La première ligne concerne la mémoire physique, avec les colonnes suivantes :
+
+- **total** : Indique la quantité de mémoire totale.
+- **used** : Indique la quantité de mémoire actuellement utilisée.
+- **free** : Indique la quantité de mémoire disponible (utilisée ni par les processus, ni par le kernel comme cache)
+- **shared** : Indique la quantité de mémoire partagée par plusieurs processus.
+- **buffers** : Indique la quantité de mémoire utilisée par le kernel pour accélérer les accès disque. Cette mémoire reste
+  disponible pour les processus, et peut être libérée dès que des applications en ont besoin. Les appels systèmes
+  //read()// et //write()// utilisent ce buffer, qui peut grandement accèlerer l'accès aux données par des applications
+  qui font des entrées-sorties.
+- **cached** : Indique le nombre de pages mémoire cachées par le kernel pour accélèrer des accès futurs.
+
+
+Comme la mémoire utilisée pour les buffers et les caches peut facilement être restituée aux applications, la seconde
+ligne  //-/+ buffers/cache// récapitule la quantité de mémoire physique actuellement allouée a des applications (1e
+colonne), ainsi que la quantité de mémoire disponible pour les applications (seconde colonne). C'est cette ligne qui
+indique //"Combien de RAM il reste"//. Pour cette ligne, le calcul est donc fait de la façon suivante :
+
++/- buffer/cache used = Memory used (1e ligne) - (buffers (1e ligne) + cache (1e ligne))
++/- buffer/cache  free = Memory free (1e ligne + buffers (1e ligne) + cache (1e ligne)
+
+La dernière ligne concerne le Swap.
+
+
+**_Exemple_** :
+
+Affiche les quantités de mémoire et le swap en kilo-octets.
+``` free -k
+
+Affiche les quantités de mémoire et le swap en méga-octets, avec une ligne qui affiche les totaux pour chaque colonne
+(//-t//).
+``` free -m -t
+
 ++ /proc/cpuinfo ++
 
 Ce fichier contient des informations détaillées sur le ou les cores du CPU de la machine.
@@ -433,6 +471,16 @@ Extrait le contenu de l'archive //backup.tar// dans le répertoire courant
 ``` tar xvf backup.tar
 Copie tous les fichiers et sous-répertoires du dossier courant vers le répertoire cible ///destination//
 ``` tar cf - * | ( cd /destination; tar xfp -)
+
+++ basename ++
+
+La commande //basename// permet de supprimer le suffixe du nom de fichier passé en argument. Elle utilisée
+principalement pour des traitements par lots sur des fichiers (voir exemples commande //find//).
+
+**__Exemple__**
+
+Retourne toto (toto.jpg avec le suffixe //.jpg// en moins).
+``` basename toto.jpg .jpg
 
 + Notion de pipe +
 
