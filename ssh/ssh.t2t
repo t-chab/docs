@@ -5,14 +5,16 @@ Dernière mise à jour: %%mtime(%c)
 %! Target : xhtml
 %! Encoding: utf-8
 %! Options : --toc --verbose --enum-title
-%!preproc: URLXMING     http://sourceforge.net/projects/xming/
 %!preproc: URLOPENSSH    http://openssh.org
 %!preproc: URLPUTTY    http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
 %!preproc: URLMBXTRM    http://mobaxterm.mobatek.net/
 %!preproc: SSHHELP  http://www.openssh.org/manual.html
 %!preproc: WIKISOCKS https://fr.wikipedia.org/wiki/SOCKS
 %!preproc: WINSCPURL    https://fr.wikipedia.org/wiki/SOCKS
+%!preproc: RSYNCURL     http://rsync.samba.org/
 %!preproc: FILEZILLAFEATURES http://filezilla-project.org/client_features.php
+%!preproc: URLXMING     http://www.straightrunning.com/XmingNotes/
+%!preproc: XMINGDL      http://sourceforge.net/projects/xming/files/Xming/
 
 ====================
 %%TOC.
@@ -31,7 +33,7 @@ Unix qui permet de remplacer de façon sécurisée les anciens outils unix que
 sont telnet, rsh, rlogin ou ftp.
 - Putty URLPUTTY est le programme windows permettant de se connecter à des 
 serveurs SSH distants.
-% - Xming URLXMING est un serveur X Window opensource pour Microsoft Windows.
+- Xming URLXMING est un serveur X Window opensource pour Microsoft Windows.
 
 
 L'outil a deux utilisations principales qui sont la connexion à un serveur 
@@ -174,12 +176,6 @@ Une fois le tunnel paramétré, il suffit de cliquer sur le bouton //"Add"// et
  d'ouvrir la connexion au serveur distant.
 
 
-% = Déport d'affichage =
-% ++ Principe de fonctionnement ++
-% ++ Avec la commande ssh ++
-% ++ Avec Putty ++
-
-
 = Outils complémentaires : scp, sftp et rsync =
 
 ++ scp ++
@@ -222,7 +218,8 @@ Rsync (pour //**R**emote **Sync**hronisation//) est un logiciel de
  synchronisation. Le protocole utilisé par rsync lui permet de ne transférer
  que les différences entre les jeux de fichiers, afin d'optimiser la
  synchronisation. Ces fonctionnalités font donc de //rsync// un outil de
- prédilection pour les sauvegardes incrémentales.
+ prédilection pour les sauvegardes incrémentales. Cet outil peut être téléchargé
+ depuis le site RSYNCURL
 
 
 = Déport d'affichage =
@@ -236,4 +233,28 @@ par des clients (les applications). Le client délègue ainsi au serveur toutes 
 tâches d'IHM. Il existe des serveurs X pour la plupart des systèmes d'exploitations
 récents (Mac OS X, GNU/Linux, Windows)
 
-++ Utilisation avec SSH ++
+++ Utilisation avec Putty sous Windows ++
+
+Pour afficher localement des applications distantes, il faut donc disposer en local 
+d'un serveur X. Sous Windows, il suffit d'utiliser pour cela le logiciel Xming (URLXMING).
+La dernière version est disponible ici : XMINGDL
+
+Il suffit de lancer le programme Xming.exe pour démarrer le serveur d'affichage.
+
+Une fois le serveur lancé (vérifier qu'une icone X est apparue dans la zone de 
+notification à côté de l'horloge), il faut ensuite paramétrer Putty pour activer 
+le déport d'affichage.
+Cette option va permettre à Putty (le client SSH) d'encapsuler tous les appels 
+à destination du serveur X et de les rediriger (via un tunnel dans la connexion SSH) 
+vers le serveur d'affichage local (Xming).
+
+Pour paramétrer Putty, il suffit d'aller dans //Connection// -> //SSH// -> //X11//
+de cocher l'option //Enable X11 Forwarding//, puis d'établir la connexion comme 
+décrit précédemment.
+
+[puttyX11.jpg]
+
+Une fois connecté, il suffit de taper la commande correspondant à l'application
+qu'on souhaite lancer (par exemple //firefox// pour lancer un navigateur). 
+L'application va ensuite s'afficher en local sur le serveur Xming.
+
