@@ -11,7 +11,7 @@
 <div align="center">
 <h1>﻿Présentation du protocole SSH et des outils associés</h1>
 <h2>&lt;tchabaud@sqli.com&gt;</h2>
-<h3>Dernière mise à jour: Wed May 15 12:24:49 2013</h3>
+<h3>Dernière mise à jour: Wed May 15 14:29:27 2013</h3>
 </div>
 
 <p></p>
@@ -184,8 +184,9 @@ données d'un protocole réseau dans un autre.
 
 <p>
 La redirection locale de port consiste à lier de façon transparente et par
- l'intermédiaire d'une connexion SSH un port TCP local à un port TCP distant.
- En pratique, ce procédé permet de se connecter à un serveur qui n'est pas accessible
+ l'intermédiaire
+ d'une connexion SSH un port TCP local à un port TCP distant. En pratique, 
+ ce procédé permet de se connecter à un serveur qui n'est pas accessible
  directement, en utilisant la connexion SSH comme conduit chiffré.
 On peut ainsi éviter d'exposer directement sur Internet des services distants
  auxquel on veut accéder, et les atteindre par l'intermédiaire d'un tunnel
@@ -208,14 +209,14 @@ Si on dispose d'un serveur SSH joignable par Internet sur le même réseau que
 
 <p>
 A l'inverse de la redirection locale, la redirection distante de port permet
- de rendre accessible (et toujours par l'intermédiaire de la connexion SSH)
- un port serveur local à des clients distants qui n'ont accès qu'à la machine cible
- de la connexion SSH. On peut considérer que ce procédé permet d'exposer de façon
- distante une application serveur qui s'exécute localement.
-Un cas d'utilisation typique de ce type de redirection est de contourner les
- restrictions firewall pour permettre l'accès distant à une application qui
- écoute sur un port local. Dans l'exemple, on permet a des clients distants de se
- connecter à l'instance BDD qui écoute sur le port 5432 en local.
+ de rendre accessible (toujours par l'intermédiaire de la connexion SSH)
+ un port local à des clients distants qui n'ont accès qu'à la machine cible
+ de la connexion SSH. Un cas d'utilisation typique de ce type de redirection
+ et de contourner les restrictions firewall pour permettre l'accès distant à
+ une application qui écoute sur un port local. Dans le cas présenté en exemple,
+ on expose aux clients distant l'accès à l'instance de base de données locale 
+ (qui écoute sur le port 5432) par l'intermédiaire du port 7777 du serveur 
+ SSH.
 </p>
 <p>
 <img align="middle" src="tunnelRemote.png" border="0" alt=""/>
@@ -272,6 +273,11 @@ Dans l'exemple suivant on crée un proxy SOCKS utilisable par n'importe quelle
 Un cas d'utilisation typique est l'utilisation de la connexion Internet
  présente sur la machine 192.168.0.2 par les applications locales.
 </p>
+
+<ul>
+<li>ssh -D 8888 192.168.0.2
+</li>
+</ul>
 
 <a id="toc12" name="toc12"></a>
 <h3>3.5.2. Tunneling avec Putty</h3>
