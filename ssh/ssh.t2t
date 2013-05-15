@@ -227,4 +227,13 @@ Rsync (pour //**R**emote **Sync**hronisation//) est un logiciel de
 
 = Déport d'affichage =
 
+++ Présentation de l'environnement X-Window ++
 
+L'environnement graphique de type fenêtré X-Window a été développé au MIT au milieu
+des années 1980. Il est basé sur un modèle client serveur : un serveur d'affichage 
+gère les événements clavier/souris, ainsi que les requêtes d'affichages envoyées 
+par des clients (les applications). Le client délègue ainsi au serveur toutes les 
+tâches d'IHM. Il existe des serveurs X pour la plupart des systèmes d'exploitations
+récents (Mac OS X, GNU/Linux, Windows)
+
+++ Utilisation avec SSH ++
