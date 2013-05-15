@@ -256,5 +256,6 @@ décrit précédemment.
 
 Une fois connecté, il suffit de taper la commande correspondant à l'application
 qu'on souhaite lancer (par exemple //firefox// pour lancer un navigateur). 
-L'application va ensuite s'afficher en local sur le serveur Xming.
+L'application va ensuite s'afficher en local sur le serveur Xming, mais elle s'exécute
+en réalité sur le serveur distant.
 
