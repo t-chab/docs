@@ -1,0 +1,219 @@
+﻿Présentation du protocole SSH et des outils associés
+<tchabaud@sqli.com>
+Dernière mise à jour: %%mtime(%c)
+
+%! Target : xhtml
+%! Encoding: utf-8
+%! Options : --toc --verbose --enum-title
+%!preproc: URLXMING     http://sourceforge.net/projects/xming/
+%!preproc: URLOPENSSH    http://openssh.org
+%!preproc: URLPUTTY    http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+%!preproc: URLMBXTRM    http://mobaxterm.mobatek.net/
+%!preproc: SSHHELP  http://www.openssh.org/manual.html
+%!preproc: WIKISOCKS https://fr.wikipedia.org/wiki/SOCKS
+%!preproc: WINSCPURL    https://fr.wikipedia.org/wiki/SOCKS
+%!preproc: FILEZILLAFEATURES http://filezilla-project.org/client_features.php
+
+====================
+%%TOC.
+====================
+
+
+= Préambule =
+
+SSH (//S//ecure //SH//ell) désigne simultanément un programme et un protocole 
+de communication sécurisé. Le protocole de communication impose un échange de 
+clefs en début de communication afin de chiffrer l'intégralité des échanges.
+Ce document décrit l'utilisation des outils suivants, disponibles pour certains 
+sous Linux (et les différents Unix), pour d'autres sous Windows :
+- OpenSSH URLOPENSSH est une suite logicielle disponible sous la plupart des 
+Unix qui permet de remplacer de façon sécurisée les anciens outils unix que 
+sont telnet, rsh, rlogin ou ftp.
+- Putty URLPUTTY est le programme windows permettant de se connecter à des 
+serveurs SSH distants.
+% - Xming URLXMING est un serveur X Window opensource pour Microsoft Windows.
+
+
+L'outil a deux utilisations principales qui sont la connexion à un serveur 
+distant pour obtenir un shell, et la création de tunnels pour accèder ou
+ rediriger des ports tcp.
+
+
+= Connexion a un serveur =
+
+++ Connexion en utilisant le client ssh en ligne de commande ++
+
+Pour se connecter, il suffit de taper la commande suivante :
+``` ssh username@host
+
+Les options les plus courantes sont les suivantes :
+- Utilisation d'un autre port que le port par défaut
+``` ssh -p 2222 username@host
+- Compression de toutes les données envoyées à l'aide de l'algorithme utilisé 
+par //gzip//. A utiliser sur des connexions lentes pour du tunneling (voir
+ plus bas)
+``` ssh -C username@host
+- Modification d'une option depuis la ligne de commande (la liste des options 
+est disponible avec la documentation SSHHELP)
+``` ssh -o nomOption=valeur username@host
+
+
+++ Connexion en utilisant Putty ++
+
+Il faut saisir le hostname ou l'adresse IP de la machine cible dans le champ 
+éponyme sur l'écran d'accueil de Putty. Le port par défaut est 22.
+
+[puttyCnx.png]
+
+Un nom d'utilisateur peut être précisé via l'écran //Connection// -> //Data// 
+dans le champ //Auto-login username//.
+
+[puttyCnxUsername.png]
+
+La compression des données s'active en cochant l'option //Enable compression// 
+sur l'écran //Connection// -> //SSH//
+
+[puttyCompress.png]
+
+
+= Tunneling de ports =
+
+
+++ Notion de tunnel ++
+
+Un tunnel, dans un contexte de réseau informatique, est une encapsulation de 
+données d'un protocole réseau dans un autre. 
+
+
+++ Redirection locale de port ++
+
+La redirection locale de port consiste à lier de façon transparente et par
+ l'intermédiaire
+ d'une connexion SSH un port TCP local à un port TCP distant. En pratique, 
+ ce procédé permet de se connecter à un serveur qui n'est pas accessible
+ directement, en utilisant la connexion SSH comme conduit chiffré.
+On peut ainsi éviter d'exposer directement sur Internet des services distants
+ auxquel on veut accéder, et les atteindre par l'intermédiaire d'un tunnel
+ entre un client et un serveur SSH.
+
+[tunnel.png]
+
+Imaginons par exemple qu'un logiciel client souhaite se connecter à une base
+ de données (serveur BDD sur le schéma, 192.168.0.2) et à un serveur mail
+ distant, qui ne sont pas directement accessibles depuis la machine locale. 
+Si on dispose d'un serveur SSH joignable par Internet sur le même réseau que
+ ces deux serveurs, on va pouvoir l'utiliser comme relais pour atteindre les
+ serveurs, le tout via une connexion chiffrée.
+
+
+++ Redirection distante de port ++
+
+A l'inverse de la redirection locale, la redirection distante de port permet
+ de rendre accessible (et toujours par l'intermédiaire de la connexion SSH)
+ un port local à des clients distants qui n'ont qu'un accès à la machine cible
+ de la connexion SSH. Un cas d'utilisation typique de ce type de redirection
+ et de contourner les restrictions firewall pour permettre l'accès distant à
+ une application qui écoute sur un port local.
+
+[tunnelRemote.png]
+
+
+++ Tunnel Dynamique ++
+
+Un tunnel "dynamique" permet d'ouvrir un serveur SOCKS (WIKISOCKS)
+ sur le port spécifié. Ce port peut ensuite être utilisé par les applications
+ locales pour utiliser le réseau de la machine distante, comme si elles
+ tournaient sur celle ci.
+
+
+++ Utilisation ++
+
++++ Avec le client ssh en ligne de commande +++
+
+Il suffit de lancer le client ssh avec l'option adaptée pour indiquer quelles
+ connexions on souhaite "tunneler". L'option //-L// indique qu'on souhaite
+ mettre en place une redirection **L**ocale de port, l'option //-R// indique
+ une redirection distante (**R**emote), et l'option //-D// un tunnel
+ **D**ynamique.
+- ssh //-L 15432:192.168.0.2:5432// : cette option va ouvrir un port sur
+ l'interface de loopback (127.0.0.1) du client SSH et va le lier au port du
+ serveur distant (5432) en encapsulant la connexion dans la connexion entre
+ le client et le serveur SSH.
+
+Pour un tunnel distant, il faut utiliser l'option //-R// (pour Remote) :
+- ssh //-R 80:192.168.0.2:6080// : cette option permet aux machines ayant
+ accès à l'adresse IP 192.168.0.2 de joindre le port 80 de la machine locale
+ en se connectant sur le port 6080 de la machine 192.168.0.2
+
+Pour un tunnel dynamique (Proxy SOCKS) c'est l'option -D qu'il faut utiliser.
+Dans l'exemple suivant on crée un proxy SOCKS utilisable par n'importe quelle
+ application locale. Les connexions sont ensuite routées vers la machine cible
+ //192.168.0.2//.
+Un cas d'utilisation typique est l'utilisation de la connexion Internet
+ présente sur la machine 192.168.0.2 par les applications locales.
+
+
++++ Tunneling avec Putty +++
+
+[puttyTunnel.png]
+
+Avec Putty, la configuration d'un tunnel se fait par l'intermédiaire de l'écran
+ //Connection// -> //SSH// -> //Tunnels//
+
+Dans cet écran, il suffit de préciser le port source (local), la destination
+ sous la forme //hostname (ou adresse IP):port//, ainsi que le type de tunnel
+ (local, distant ou dynamique). Il est également possible de choisir la version
+ du protocole IP à utiliser.
+Une fois le tunnel paramétré, il suffit de cliquer sur le bouton //"Add"// et
+ d'ouvrir la connexion au serveur distant.
+
+
+% = Déport d'affichage =
+% ++ Principe de fonctionnement ++
+% ++ Avec la commande ssh ++
+% ++ Avec Putty ++
+
+
+= Outils complémentaires : scp, sftp et rsync =
+
+++ scp ++
+//scp// (pour //**S**ecure **c**o**p**y//) est un protocole similaire à 
+ l'ancien protocole Unix //rcp//, mais à la différence de //rcp// les données
+ sont chiffrées.
+ La commande //scp// qui implémente ce protocole permet donc de copier des
+ fichiers d'une machine à l'autre, en assurant le chiffrement des flux échangés.
+ Cependant seul le transfert de fichiers est implémenté. Les opérations
+ courantes sur les fichiers (déplacement, copie, etc ...) sont elles 
+ implémentées au travers du protocole SFTP.
+La syntaxe est la suivante :
+- Copie du fichier //a.txt// vers le répertoire ///tmp// sur la machine distante
+ 192.168.0.2. Attention à ne pas oublier le séparateur //:// avant de spécifier 
+ le path. Si nécessaire la commande demandera la saisie d'un mot de passe ou 
+ d'une passphrase pour s'authentifier sur l'hôte distant.
+``` scp ~/a.txt login@192.168.0.2:/tmp
+
+
+++ sftp ++
+//sftp// est un protocole dont l'implémentation principale est la commande
+ éponyme. Cette commande s'utilise comme la commande classique ftp, avec une 
+ interface similaire. A la différence de scp, sftp supporte beaucoup plus 
+ d'opérations sur des fichiers à distance. 
+
+++ Sous Windows ++
+
+Pour Windows, une implémentation de ces deux protocole est fournie par le
+ programme WinSCP (WINSCPURL). Le célèbre programme Filezilla ne semble
+ fournir qu'une implémentation SFTP (FILEZILLAFEATURES). Il est donc préférable 
+ d'utiliser WinSCP car certains serveurs peuvent avoir désactivé le protocole 
+ SFTP, dans ce cas WinSCP basculera automatiquement sur le protocole SCP.
+
+++ rsync ++
+
+Rsync (pour //**R**emote **Sync**hronisation//) est un logiciel de
+ synchronisation unidirectionelle (uniquement dans le sens source ->
+ destination) de fichiers/répertoires, qui utilise la commande 
+ //ssh// pour chiffrer les échanges de fichiers effectués lors de la
+ synchronisation. Le protocole utilisé par rsync lui permet de ne transférer
+ que les différences entre les jeux de fichiers, afin d'optimiser la
+ synchronisation. Ces fonctionnalités font donc de //rsync// un outil de
+ prédilection pour les sauvegardes incrémentales.
