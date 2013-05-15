@@ -109,11 +109,14 @@ Si on dispose d'un serveur SSH joignable par Internet sur le même réseau que
 ++ Redirection distante de port ++
 
 A l'inverse de la redirection locale, la redirection distante de port permet
- de rendre accessible (et toujours par l'intermédiaire de la connexion SSH)
- un port local à des clients distants qui n'ont qu'un accès à la machine cible
+ de rendre accessible (toujours par l'intermédiaire de la connexion SSH)
+ un port local à des clients distants qui n'ont accès qu'à la machine cible
  de la connexion SSH. Un cas d'utilisation typique de ce type de redirection
  et de contourner les restrictions firewall pour permettre l'accès distant à
- une application qui écoute sur un port local.
+ une application qui écoute sur un port local. Dans le cas présenté en exemple,
+ on expose aux clients distant l'accès à l'instance de base de données locale 
+ (qui écoute sur le port 5432) par l'intermédiaire du port 7777 du serveur 
+ SSH.
 
 [tunnelRemote.png]
 
@@ -140,10 +143,12 @@ Il suffit de lancer le client ssh avec l'option adaptée pour indiquer quelles
  serveur distant (5432) en encapsulant la connexion dans la connexion entre
  le client et le serveur SSH.
 
+
 Pour un tunnel distant, il faut utiliser l'option //-R// (pour Remote) :
 - ssh //-R 80:192.168.0.2:6080// : cette option permet aux machines ayant
  accès à l'adresse IP 192.168.0.2 de joindre le port 80 de la machine locale
  en se connectant sur le port 6080 de la machine 192.168.0.2
+
 
 Pour un tunnel dynamique (Proxy SOCKS) c'est l'option -D qu'il faut utiliser.
 Dans l'exemple suivant on crée un proxy SOCKS utilisable par n'importe quelle
@@ -151,6 +156,7 @@ Dans l'exemple suivant on crée un proxy SOCKS utilisable par n'importe quelle
  //192.168.0.2//.
 Un cas d'utilisation typique est l'utilisation de la connexion Internet
  présente sur la machine 192.168.0.2 par les applications locales.
+- ssh -D 8888 192.168.0.2
 
 
 +++ Tunneling avec Putty +++
@@ -217,3 +223,8 @@ Rsync (pour //**R**emote **Sync**hronisation//) est un logiciel de
  que les différences entre les jeux de fichiers, afin d'optimiser la
  synchronisation. Ces fonctionnalités font donc de //rsync// un outil de
  prédilection pour les sauvegardes incrémentales.
+
+
+= Déport d'affichage =
+
+
