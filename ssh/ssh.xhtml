@@ -11,7 +11,7 @@
 <div align="center">
 <h1>﻿Présentation du protocole SSH et des outils associés</h1>
 <h2>&lt;tchabaud@sqli.com&gt;</h2>
-<h3>Dernière mise à jour: Wed May 15 15:58:08 2013</h3>
+<h3>Dernière mise à jour: Mon Sep 23 23:30:35 2013</h3>
 </div>
 
 <p></p>
@@ -27,45 +27,49 @@
     </li>
     <li><a href="#toc4">2.2. Connexion en utilisant Putty</a>
     </li>
+    <li><a href="#toc5">2.3. Authentification</a>
+    </li>
     </ul>
   </li>
-  <li><a href="#toc5">Tunneling de ports</a>
+  <li><a href="#toc6">Tunneling de ports</a>
     <ul>
-    <li><a href="#toc6">3.1. Notion de tunnel</a>
+    <li><a href="#toc7">3.1. Notion de tunnel</a>
     </li>
-    <li><a href="#toc7">3.2. Redirection locale de port</a>
+    <li><a href="#toc8">3.2. Redirection locale de port</a>
     </li>
-    <li><a href="#toc8">3.3. Redirection distante de port</a>
+    <li><a href="#toc9">3.3. Redirection distante de port</a>
     </li>
-    <li><a href="#toc9">3.4. Tunnel Dynamique</a>
+    <li><a href="#toc10">3.4. Tunnel Dynamique</a>
     </li>
-    <li><a href="#toc10">3.5. Utilisation</a>
+    <li><a href="#toc11">3.5. Utilisation</a>
       <ul>
-      <li><a href="#toc11">3.5.1. Avec le client ssh en ligne de commande</a>
+      <li><a href="#toc12">3.5.1. Avec le client ssh en ligne de commande</a>
       </li>
-      <li><a href="#toc12">3.5.2. Tunneling avec Putty</a>
+      <li><a href="#toc13">3.5.2. Tunneling avec Putty</a>
       </li>
       </ul>
     </li>
     </ul>
   </li>
-  <li><a href="#toc13">Outils complémentaires : scp, sftp et rsync</a>
+  <li><a href="#toc14">Outils complémentaires : scp, sftp et rsync</a>
     <ul>
-    <li><a href="#toc14">4.1. scp</a>
+    <li><a href="#toc15">4.1. scp</a>
     </li>
-    <li><a href="#toc15">4.2. sftp</a>
+    <li><a href="#toc16">4.2. sftp</a>
     </li>
-    <li><a href="#toc16">4.3. Sous Windows</a>
+    <li><a href="#toc17">4.3. Sous Windows</a>
     </li>
-    <li><a href="#toc17">4.4. rsync</a>
+    <li><a href="#toc18">4.4. rsync</a>
     </li>
     </ul>
   </li>
-  <li><a href="#toc18">Déport d'affichage</a>
+  <li><a href="#toc19">Déport d'affichage</a>
     <ul>
-    <li><a href="#toc19">5.1. Présentation de l'environnement X-Window</a>
+    <li><a href="#toc20">5.1. Présentation de l'environnement X-Window</a>
     </li>
-    <li><a href="#toc20">5.2. Utilisation avec Putty sous Windows</a>
+    <li><a href="#toc21">5.2. Utilisation avec Putty sous Windows</a>
+    </li>
+    <li><a href="#toc22">5.3. En ligne de commande</a>
     </li>
     </ul>
   </li>
@@ -179,9 +183,53 @@ sur l'écran <i>Connection</i> -&gt; <i>SSH</i>
 </p>
 
 <a id="toc5" name="toc5"></a>
-<h1>3. Tunneling de ports</h1>
+<h2>2.3. Authentification</h2>
+
+<p>
+En plus de l'authentification par mot de passe, SSH permet de s'authentifier en utilisant une clef. 
+Le principe est simple : on génère une clef sur le client, en précisant éventuellement une passphrase 
+associée à la clef (si la clef ne possède pas de passphrase, n'importe qui possèdant la clef peut se connecter).
+La commande pour générer la clef est la suivante (la saisie de la passphrase est optionelle) :
+</p>
+
+<pre>
+  ssh-keygen -f mykey
+</pre>
+
+<p>
+Deux fichiers seront ainsi générés : <i>mykey</i> qui contient la partie privée, et <i>mykey.pub</i> qui contient 
+la partie publique de la clef. 
+</p>
+<p>
+Sur le serveur, il faut indiquer dans le répertoire HOME du compte avec lequel on se connecte que 
+cette clef est autorisée à se connecter. Cela peut se faire de plusieurs façons :
+</p>
+
+<ul>
+<li>directement en sur le serveur, en ayant copié au préalable la partie publique :
+
+<pre>
+  cat id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</pre>
+
+<p></p>
+</li>
+<li>en utilisant la commande ssh-copy-id :
+
+<pre>
+  ssh-copy-id -i id_rsa user@myserver
+</pre>
+
+<p></p>
+</li>
+<li>ou en copiant / collant directement le contenu de <i>mykey.pub</i> dans le fichier ~/.ssh/authorized_keys sur le serveur
+</li>
+</ul>
 
 <a id="toc6" name="toc6"></a>
+<h1>3. Tunneling de ports</h1>
+
+<a id="toc7" name="toc7"></a>
 <h2>3.1. Notion de tunnel</h2>
 
 <p>
@@ -189,7 +237,7 @@ Un tunnel, dans un contexte de réseau informatique, est une encapsulation de
 données d'un protocole réseau dans un autre. 
 </p>
 
-<a id="toc7" name="toc7"></a>
+<a id="toc8" name="toc8"></a>
 <h2>3.2. Redirection locale de port</h2>
 
 <p>
@@ -214,7 +262,7 @@ Si on dispose d'un serveur SSH joignable par Internet sur le même réseau que
  serveurs, le tout via une connexion chiffrée.
 </p>
 
-<a id="toc8" name="toc8"></a>
+<a id="toc9" name="toc9"></a>
 <h2>3.3. Redirection distante de port</h2>
 
 <p>
@@ -232,7 +280,7 @@ A l'inverse de la redirection locale, la redirection distante de port permet
 <img align="middle" src="tunnelRemote.png" border="0" alt=""/>
 </p>
 
-<a id="toc9" name="toc9"></a>
+<a id="toc10" name="toc10"></a>
 <h2>3.4. Tunnel Dynamique</h2>
 
 <p>
@@ -242,10 +290,10 @@ Un tunnel "dynamique" permet d'ouvrir un serveur SOCKS (<a href="https://fr.wiki
  tournaient sur celle ci.
 </p>
 
-<a id="toc10" name="toc10"></a>
+<a id="toc11" name="toc11"></a>
 <h2>3.5. Utilisation</h2>
 
-<a id="toc11" name="toc11"></a>
+<a id="toc12" name="toc12"></a>
 <h3>3.5.1. Avec le client ssh en ligne de commande</h3>
 
 <p>
@@ -289,7 +337,7 @@ Un cas d'utilisation typique est l'utilisation de la connexion Internet
 </li>
 </ul>
 
-<a id="toc12" name="toc12"></a>
+<a id="toc13" name="toc13"></a>
 <h3>3.5.2. Tunneling avec Putty</h3>
 
 <p>
@@ -308,10 +356,10 @@ Une fois le tunnel paramétré, il suffit de cliquer sur le bouton <i>"Add"</i> 
  d'ouvrir la connexion au serveur distant.
 </p>
 
-<a id="toc13" name="toc13"></a>
+<a id="toc14" name="toc14"></a>
 <h1>4. Outils complémentaires : scp, sftp et rsync</h1>
 
-<a id="toc14" name="toc14"></a>
+<a id="toc15" name="toc15"></a>
 <h2>4.1. scp</h2>
 
 <p>
@@ -339,7 +387,7 @@ La syntaxe est la suivante :
 </li>
 </ul>
 
-<a id="toc15" name="toc15"></a>
+<a id="toc16" name="toc16"></a>
 <h2>4.2. sftp</h2>
 
 <p>
@@ -349,7 +397,7 @@ La syntaxe est la suivante :
  d'opérations sur des fichiers à distance. 
 </p>
 
-<a id="toc16" name="toc16"></a>
+<a id="toc17" name="toc17"></a>
 <h2>4.3. Sous Windows</h2>
 
 <p>
@@ -360,7 +408,7 @@ Pour Windows, une implémentation de ces deux protocole est fournie par le
  SFTP, dans ce cas WinSCP basculera automatiquement sur le protocole SCP.
 </p>
 
-<a id="toc17" name="toc17"></a>
+<a id="toc18" name="toc18"></a>
 <h2>4.4. rsync</h2>
 
 <p>
@@ -375,10 +423,10 @@ Rsync (pour <i><b>R</b>emote <b>Sync</b>hronisation</i>) est un logiciel de
  depuis le site <a href="http://rsync.samba.org/">http://rsync.samba.org/</a>
 </p>
 
-<a id="toc18" name="toc18"></a>
+<a id="toc19" name="toc19"></a>
 <h1>5. Déport d'affichage</h1>
 
-<a id="toc19" name="toc19"></a>
+<a id="toc20" name="toc20"></a>
 <h2>5.1. Présentation de l'environnement X-Window</h2>
 
 <p>
@@ -390,7 +438,7 @@ tâches d'IHM. Il existe des serveurs X pour la plupart des systèmes d'exploita
 récents (Mac OS X, GNU/Linux, Windows)
 </p>
 
-<a id="toc20" name="toc20"></a>
+<a id="toc21" name="toc21"></a>
 <h2>5.2. Utilisation avec Putty sous Windows</h2>
 
 <p>
@@ -422,6 +470,22 @@ Une fois connecté, il suffit de taper la commande correspondant à l'applicatio
 qu'on souhaite lancer (par exemple <i>firefox</i> pour lancer un navigateur). 
 L'application va ensuite s'afficher en local sur le serveur Xming, mais elle s'exécute
 en réalité sur le serveur distant.
+</p>
+
+<a id="toc22" name="toc22"></a>
+<h2>5.3. En ligne de commande</h2>
+
+<p>
+Avec la commande ssh, le déport d'affichage se met en place très simplement à l'aide de l'option <i>-X</i> :
+</p>
+
+<pre>
+  ssh -X user@host
+</pre>
+
+<p>
+Cette commande va permettre de lancer des applications qui vont s'exécuter sur le serveur distant, 
+      mais qui viendront s'afficher automatiquement sur le serveur X du client.
 </p>
 
 <!-- xhtml code generated by txt2tags 2.6 (http://txt2tags.org) -->

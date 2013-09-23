@@ -90,12 +90,11 @@ la partie publique de la clef.
 
 Sur le serveur, il faut indiquer dans le répertoire HOME du compte avec lequel on se connecte que 
 cette clef est autorisée à se connecter. Cela peut se faire de plusieurs façons :
-
 - directement en sur le serveur, en ayant copié au préalable la partie publique :
 ``` cat id_rsa.pub >> ~/.ssh/authorized_keys
 
 - en utilisant la commande ssh-copy-id :
-```ssh-copy-id -i id_rsa user@myserver
+``` ssh-copy-id -i id_rsa user@myserver
 
 - ou en copiant / collant directement le contenu de //mykey.pub// dans le fichier ~/.ssh/authorized_keys sur le serveur
 
@@ -280,4 +279,11 @@ Une fois connecté, il suffit de taper la commande correspondant à l'applicatio
 qu'on souhaite lancer (par exemple //firefox// pour lancer un navigateur). 
 L'application va ensuite s'afficher en local sur le serveur Xming, mais elle s'exécute
 en réalité sur le serveur distant.
+
+++ En ligne de commande ++
+
+Avec la commande ssh, le déport d'affichage se met en place très simplement à l'aide de l'option //-X// :
+``` ssh -X user@host
+Cette commande va permettre de lancer des applications qui vont s'exécuter sur le serveur distant, 
+      mais qui viendront s'afficher automatiquement sur le serveur X du client.
 
