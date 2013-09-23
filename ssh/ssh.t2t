@@ -77,6 +77,28 @@ sur l'écran //Connection// -> //SSH//
 
 [puttyCompress.png]
 
+++ Authentification ++
+
+En plus de l'authentification par mot de passe, SSH permet de s'authentifier en utilisant une clef. 
+Le principe est simple : on génère une clef sur le client, en précisant éventuellement une passphrase 
+associée à la clef (si la clef ne possède pas de passphrase, n'importe qui possèdant la clef peut se connecter).
+La commande pour générer la clef est la suivante (la saisie de la passphrase est optionelle) :
+``` ssh-keygen -f mykey
+
+Deux fichiers seront ainsi générés : //mykey// qui contient la partie privée, et //mykey.pub// qui contient 
+la partie publique de la clef. 
+
+Sur le serveur, il faut indiquer dans le répertoire HOME du compte avec lequel on se connecte que 
+cette clef est autorisée à se connecter. Cela peut se faire de plusieurs façons :
+
+- directement en sur le serveur, en ayant copié au préalable la partie publique :
+``` cat id_rsa.pub >> ~/.ssh/authorized_keys
+
+- en utilisant la commande ssh-copy-id :
+```ssh-copy-id -i id_rsa user@myserver
+
+- ou en copiant / collant directement le contenu de //mykey.pub// dans le fichier ~/.ssh/authorized_keys sur le serveur
+
 
 = Tunneling de ports =
 
